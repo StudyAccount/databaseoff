@@ -13,4 +13,9 @@ public class AppConfig {
     public LogAspect logAspect(){
         return new LogAspect();
     }
+
+//    @Bean
+//    public Employee employee(){
+//        return new Employee();
+//    }
 }

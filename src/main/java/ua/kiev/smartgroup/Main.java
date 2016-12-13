@@ -2,11 +2,8 @@ package ua.kiev.smartgroup;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import ua.kiev.smartgroup.model.jdbc.JdbcEmployeeDao;
+import ua.kiev.smartgroup.model.EmployeeDao;
 
 
 /**
@@ -15,35 +12,17 @@ import java.sql.Statement;
 public class Main {
     public static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
+
     public static void main(String[] args) {
 
-        loadDriver();
-        LOGGER.info("Connecting to database");
-
-        String url = "jdbc:postgresql://localhost:5432/company";
-        String user = "Viktor";
-        String password = "pass";
-        try (Connection connection = DriverManager.getConnection(url, user, password);
-             Statement statement = connection.createStatement()){
-
-            LOGGER.info("Successfully connected to database");
-        } catch (SQLException exception) {
-            LOGGER.error("Exception occurred while connecting to database: " + url, exception);
-        }
-
+        EmployeeDao employeeDao = new JdbcEmployeeDao();
+        System.out.println("All employees");
+        employeeDao.getAll().forEach(System.out::println);
+        System.out.println("Employee with id 3");
+        System.out.println(employeeDao.load(3));
 
     }
 
-    private static void loadDriver() {
-        try {
-            LOGGER.info("Loading JDBC driver: org.postgresql.Driver");
-            Class.forName("org.postgresql.Driver");
-            LOGGER.info("Driver loaded successfully");
-        } catch (ClassNotFoundException e) {
-            LOGGER.error("Cannot find driver: org.postgresql.Driver");
-            throw new RuntimeException(e);
-        }
-    }
 
 }
 
