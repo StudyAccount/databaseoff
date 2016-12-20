@@ -6,6 +6,7 @@ import ua.kiev.smartgroup.Main;
 import ua.kiev.smartgroup.model.Employee;
 import ua.kiev.smartgroup.model.EmployeeDao;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +16,12 @@ import java.util.List;
  */
 public class JdbcEmployeeDao implements EmployeeDao {
 
+    private DataSource dataSource;
+
     public static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
-    private String url = "jdbc:postgresql://localhost:5432/company";
-    private String user = "Viktor";
-    private String password  = "pass";
+//    private String url = "jdbc:postgresql://localhost:5432/company";
+//    private String user = "Viktor";
+//    private String password  = "pass";
 
     public JdbcEmployeeDao(){
         loadDriver();
@@ -27,7 +30,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
     @Override
     public Employee load(int id){
         Employee employee = null;
-        try (Connection connection = DriverManager.getConnection(url, user, password);
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE ID = ?")){
 
             statement.setInt(1, id);
@@ -43,7 +46,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
 
 
         } catch (SQLException exception) {
-            LOGGER.error("Exception occurred while connecting to database: " + url, exception);
+            LOGGER.error("Exception occurred while connecting to database: ", exception);
             throw new RuntimeException(exception);
         }
 
@@ -55,7 +58,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
         LOGGER.info("Connecting to database");
         List<Employee> result = new ArrayList<>();
 
-        try (Connection connection = DriverManager.getConnection(url, user, password);
+        try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()){
 
             LOGGER.info("Successfully connected to database");
@@ -70,7 +73,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
             }
 
         } catch (SQLException exception) {
-            LOGGER.error("Exception occurred while connecting to database: " + url, exception);
+            LOGGER.error("Exception occurred while connecting to database: ", exception);
             throw new RuntimeException(exception);
         }
 
@@ -106,4 +109,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
         }
     }
 
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 }

@@ -1,7 +1,17 @@
 package ua.kiev.smartgroup.configuration;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+import ua.kiev.smartgroup.model.Employee;
+import ua.kiev.smartgroup.model.EmployeeDao;
+import ua.kiev.smartgroup.model.jdbc.JdbcEmployeeDao;
+
+import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
 
 /**
  * Created by User on 23.11.2016.
@@ -14,8 +24,48 @@ public class AppConfig {
         return new LogAspect();
     }
 
-//    @Bean
-//    public Employee employee(){
-//        return new Employee();
-//    }
+
+    @Bean
+    public ComboPooledDataSource dataSource(
+//            @Value("${jdbc.driver.class}") String driverClass,
+//            @Value("${jdbc.url}") String jdbcUrl,
+//            @Value("${jdbc.user}") String user,
+//            @Value("${jdbc.password}") String password,
+//            @Value("${jdbc.min.connections}") int minConnections,
+//            @Value("${jdbc.max.connections}") int maxConnections,
+//            @Value("${jdbc.acquire.increment}") int acquireIncrement
+    ) throws PropertyVetoException {
+
+        ComboPooledDataSource dataSource = new ComboPooledDataSource();
+        String driverClass = "org.postgresql.Driver" ;
+        String jdbcUrl = "jdbc:postgresql://localhost:5432/company";
+        String user = "Viktor";
+        String password = "pass";
+        int minConnections = 1;
+        int maxConnections = 10;
+        int acquireIncrement = 1;
+        dataSource.setDriverClass(driverClass);
+        dataSource.setJdbcUrl(jdbcUrl);
+        dataSource.setUser(user);
+        dataSource.setPassword(password);
+        dataSource.setMinPoolSize(minConnections);
+        dataSource.setMaxPoolSize(maxConnections);
+        dataSource.setAcquireIncrement(acquireIncrement);
+        return dataSource;
+    }
+
+    @Bean
+    public PropertyPlaceholderConfigurer propertyPlaceholderConfigurer () {
+        PropertyPlaceholderConfigurer propertyPlaceholderConfigurer = new PropertyPlaceholderConfigurer();
+        propertyPlaceholderConfigurer.setLocation(new ClassPathResource("classpath:jdbc.properties"));
+        return propertyPlaceholderConfigurer;
+    }
+
+
+    @Bean
+    public JdbcEmployeeDao jdbcEmployeeDao() throws PropertyVetoException {
+        JdbcEmployeeDao jdbcEmployeeDao = new JdbcEmployeeDao();
+        jdbcEmployeeDao.setDataSource(dataSource());
+        return jdbcEmployeeDao;
+    }
 }
