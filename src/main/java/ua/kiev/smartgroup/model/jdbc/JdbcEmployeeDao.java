@@ -19,17 +19,10 @@ public class JdbcEmployeeDao implements EmployeeDao {
     private DataSource dataSource;
 
     public static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
-//    private String url = "jdbc:postgresql://localhost:5432/company";
-//    private String user = "Viktor";
-//    private String password  = "pass";
-
-    public JdbcEmployeeDao(){
-        loadDriver();
-    }
 
     @Override
     public Employee load(int id){
-        Employee employee = null;
+
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE ID = ?")){
 
@@ -96,17 +89,6 @@ public class JdbcEmployeeDao implements EmployeeDao {
         employee.setDateOfBirth(resultSet.getString("DATE_OF_BIRTH"));
         employee.setDateOfSigningAContract(resultSet.getString("DATE_OF_SIGNING_A_CONTRACT"));
         return employee;
-    }
-
-    private void loadDriver() {
-        try {
-            LOGGER.info("Loading JDBC driver: org.postgresql.Driver");
-            Class.forName("org.postgresql.Driver");
-            LOGGER.info("Driver loaded successfully");
-        } catch (ClassNotFoundException e) {
-            LOGGER.error("Cannot find driver: org.postgresql.Driver");
-            throw new RuntimeException(e);
-        }
     }
 
     public void setDataSource(DataSource dataSource) {

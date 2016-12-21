@@ -54,12 +54,12 @@ public class AppConfig {
         return dataSource;
     }
 
-    @Bean
-    public PropertyPlaceholderConfigurer propertyPlaceholderConfigurer () {
-        PropertyPlaceholderConfigurer propertyPlaceholderConfigurer = new PropertyPlaceholderConfigurer();
-        propertyPlaceholderConfigurer.setLocation(new ClassPathResource("classpath:jdbc.properties"));
-        return propertyPlaceholderConfigurer;
-    }
+//    @Bean
+//    public PropertyPlaceholderConfigurer propertyPlaceholderConfigurer () {
+//        PropertyPlaceholderConfigurer propertyPlaceholderConfigurer = new PropertyPlaceholderConfigurer();
+//        propertyPlaceholderConfigurer.setLocation(new ClassPathResource("jdbc.properties"));
+//        return propertyPlaceholderConfigurer;
+//    }
 
 
     @Bean
