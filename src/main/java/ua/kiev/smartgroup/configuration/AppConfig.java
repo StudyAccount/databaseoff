@@ -6,6 +6,7 @@ import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import ua.kiev.smartgroup.model.Employee;
 import ua.kiev.smartgroup.model.EmployeeDao;
 import ua.kiev.smartgroup.model.jdbc.JdbcEmployeeDao;
@@ -67,5 +68,12 @@ public class AppConfig {
         JdbcEmployeeDao jdbcEmployeeDao = new JdbcEmployeeDao();
         jdbcEmployeeDao.setDataSource(dataSource());
         return jdbcEmployeeDao;
+    }
+
+    @Bean
+    public DataSourceTransactionManager txManager() throws PropertyVetoException {
+        DataSourceTransactionManager txManager = new DataSourceTransactionManager();
+        txManager.setDataSource(dataSource());
+        return txManager;
     }
 }
