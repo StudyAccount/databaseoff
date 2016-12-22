@@ -2,6 +2,8 @@ package ua.kiev.smartgroup.model.jdbc;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ua.kiev.smartgroup.Main;
 import ua.kiev.smartgroup.model.Employee;
 import ua.kiev.smartgroup.model.EmployeeDao;
@@ -21,6 +23,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
     public static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     @Override
+    @Transactional(propagation = Propagation.MANDATORY)
     public Employee load(int id){
 
         try (Connection connection = dataSource.getConnection();
@@ -46,6 +49,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
     }
 
     @Override
+    @Transactional(propagation = Propagation.MANDATORY)
     public List<Employee> getAll(){
 
         LOGGER.info("Connecting to database");

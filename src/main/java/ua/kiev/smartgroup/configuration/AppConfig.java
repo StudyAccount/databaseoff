@@ -1,23 +1,20 @@
 package ua.kiev.smartgroup.configuration;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import ua.kiev.smartgroup.model.Employee;
-import ua.kiev.smartgroup.model.EmployeeDao;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import ua.kiev.smartgroup.Main;
+import ua.kiev.smartgroup.controllers.EmployeeController;
 import ua.kiev.smartgroup.model.jdbc.JdbcEmployeeDao;
 
-import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
-
 /**
  * Created by User on 23.11.2016.
  */
 @Configuration
+@EnableTransactionManagement(proxyTargetClass =  true)
 public class AppConfig {
 
     @Bean
@@ -64,7 +61,7 @@ public class AppConfig {
 
 
     @Bean
-    public JdbcEmployeeDao jdbcEmployeeDao() throws PropertyVetoException {
+    public JdbcEmployeeDao employeeDao() throws PropertyVetoException {
         JdbcEmployeeDao jdbcEmployeeDao = new JdbcEmployeeDao();
         jdbcEmployeeDao.setDataSource(dataSource());
         return jdbcEmployeeDao;
@@ -75,5 +72,23 @@ public class AppConfig {
         DataSourceTransactionManager txManager = new DataSourceTransactionManager();
         txManager.setDataSource(dataSource());
         return txManager;
+    }
+
+
+    @Bean
+    public EmployeeController employeeController() throws PropertyVetoException {
+        EmployeeController employeeController = new EmployeeController();
+        employeeController.setTxManager(txManager());
+        employeeController.setEmployeeDao(employeeDao());
+        return employeeController;
+
+    }
+
+    @Bean
+    public Main main() throws PropertyVetoException {
+
+        Main main = new Main();
+        main.setEmployeeController(employeeController());
+        return main;
     }
 }
