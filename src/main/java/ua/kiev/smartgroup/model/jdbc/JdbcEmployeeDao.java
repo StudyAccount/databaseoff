@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.kiev.smartgroup.Main;
 import ua.kiev.smartgroup.model.Employee;
-import ua.kiev.smartgroup.model.EmployeeDao;
+import ua.kiev.smartgroup.model.dao.EmployeeDao;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -24,7 +24,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
 
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
-    public Employee load(int id){
+    public Employee loadEmployee(int id){
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE ID = ?")){
@@ -50,7 +50,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
 
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
-    public List<Employee> getAll(){
+    public List<Employee> getAllEmployees(){
 
         LOGGER.info("Connecting to database");
         List<Employee> result = new ArrayList<>();
@@ -78,6 +78,22 @@ public class JdbcEmployeeDao implements EmployeeDao {
 
     }
 
+
+    @Override
+    public Employee addNewEmployee() {
+        return null;
+    }
+
+    @Override
+    public Employee deleteEmployee() {
+        return null;
+    }
+
+    @Override
+    public Employee modify() {
+        return null;
+    }
+
     private Employee createEmployee(ResultSet resultSet) throws SQLException {
         Employee employee = new Employee();
         employee.setId(resultSet.getInt("ID"));
@@ -94,6 +110,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
         employee.setDateOfSigningAContract(resultSet.getString("DATE_OF_SIGNING_A_CONTRACT"));
         return employee;
     }
+
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;

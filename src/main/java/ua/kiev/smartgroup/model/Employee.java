@@ -14,6 +14,8 @@ public class Employee {
     private String address;
     private String dateOfBirth;
     private String dateOfSigningAContract;
+    private int idRiskManager;
+
 
 
     public int getId() {
@@ -88,6 +90,14 @@ public class Employee {
         this.dateOfSigningAContract = dateOfSigningAContract;
     }
 
+    public int getIdRiskManager() {
+        return idRiskManager;
+    }
+
+    public void setIdRiskManager(int idRiskManager) {
+        this.idRiskManager = idRiskManager;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -98,8 +108,9 @@ public class Employee {
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", dateOfSigningAContract=" + dateOfSigningAContract +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", dateOfSigningAContract='" + dateOfSigningAContract + '\'' +
+                ", idRiskManager=" + idRiskManager +
                 '}';
     }
 }

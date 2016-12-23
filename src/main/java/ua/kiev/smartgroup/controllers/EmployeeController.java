@@ -4,7 +4,7 @@ package ua.kiev.smartgroup.controllers;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 import ua.kiev.smartgroup.model.Employee;
-import ua.kiev.smartgroup.model.EmployeeDao;
+import ua.kiev.smartgroup.model.dao.EmployeeDao;
 
 import java.util.List;
 
@@ -19,14 +19,14 @@ public class EmployeeController {
     @Transactional
     public List<Employee> getAllEmployees(){
 
-       return employeeDao.getAll();
+       return employeeDao.getAllEmployees();
 
     }
 
     @Transactional
     public Employee getEmployeeById(int id){
 
-        return employeeDao.load(id);
+        return employeeDao.loadEmployee(id);
     }
 
 

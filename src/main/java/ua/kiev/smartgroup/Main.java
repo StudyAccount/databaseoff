@@ -24,9 +24,9 @@ public class Main {
         //EmployeeDao employeeDao = applicationContext.getBean(JdbcEmployeeDao.class);
 //
 //        System.out.println("All employees");
-//        employeeDao.getAll().forEach(System.out::println);
+//        employeeDao.getAllEmployees().forEach(System.out::println);
 //        System.out.println("Employee with id 3");
-//        System.out.println(employeeDao.load(3));
+//        System.out.println(employeeDao.loadEmployee(3));
 
     }
 
