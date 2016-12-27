@@ -7,7 +7,10 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import ua.kiev.smartgroup.Main;
 import ua.kiev.smartgroup.controllers.EmployeeController;
+import ua.kiev.smartgroup.model.Employee;
+import ua.kiev.smartgroup.model.Processor;
 import ua.kiev.smartgroup.model.jdbc.JdbcEmployeeDao;
+import ua.kiev.smartgroup.model.jdbc.JdbcProcessorDao;
 
 import java.beans.PropertyVetoException;
 /**
@@ -61,9 +64,17 @@ public class AppConfig {
 
 
     @Bean
+    public Employee employee(){
+
+        return new Employee();
+    }
+
+    @Bean
     public JdbcEmployeeDao employeeDao() throws PropertyVetoException {
         JdbcEmployeeDao jdbcEmployeeDao = new JdbcEmployeeDao();
         jdbcEmployeeDao.setDataSource(dataSource());
+        jdbcEmployeeDao.setEmployee(employee());
+
         return jdbcEmployeeDao;
     }
 
@@ -88,7 +99,24 @@ public class AppConfig {
     public Main main() throws PropertyVetoException {
 
         Main main = new Main();
-        main.setEmployeeController(employeeController());
+//        main.setEmployeeController(employeeController());
+        main.setProcessorDao(processorDao());
         return main;
+    }
+
+    @Bean
+    public Processor processor(){
+
+        return new Processor();
+    }
+
+    @Bean
+    public JdbcProcessorDao processorDao() throws PropertyVetoException {
+
+        JdbcProcessorDao processorDao = new JdbcProcessorDao();
+        processorDao.setProcessor(processor());
+        processorDao.setDataSource(dataSource());
+        return processorDao;
+
     }
 }

@@ -19,6 +19,8 @@ import java.util.List;
 public class JdbcEmployeeDao implements EmployeeDao {
 
     private DataSource dataSource;
+    private Employee employee;
+
 
     public static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
@@ -95,7 +97,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
     }
 
     private Employee createEmployee(ResultSet resultSet) throws SQLException {
-        Employee employee = new Employee();
+
         employee.setId(resultSet.getInt("ID"));
         employee.setIdStatus(resultSet.getInt("ID_STATUS"));
         employee.setLastName(resultSet.getString("LAST_NAME"));
@@ -114,5 +116,9 @@ public class JdbcEmployeeDao implements EmployeeDao {
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

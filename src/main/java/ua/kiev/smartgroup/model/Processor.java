@@ -23,4 +23,12 @@ public class Processor {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Processor{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
