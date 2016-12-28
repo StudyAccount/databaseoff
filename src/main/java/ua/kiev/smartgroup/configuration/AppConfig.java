@@ -100,7 +100,8 @@ public class AppConfig {
     public Main main() throws PropertyVetoException {
 
         Main main = new Main();
-//        main.setEmployeeController(employeeController());
+        main.setEmployeeController(employeeController());
+        main.setEmployeeDao(employeeDao());
         main.setProcessorDao(processorDao());
         return main;
     }

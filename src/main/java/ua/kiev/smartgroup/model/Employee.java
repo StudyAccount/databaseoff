@@ -14,6 +14,7 @@ public class Employee {
     private String address;
     private String dateOfBirth;
     private String dateOfSigningAContract;
+    private String dateOfFirstTrade;
     private int idRiskManager;
 
 
@@ -90,6 +91,14 @@ public class Employee {
         this.dateOfSigningAContract = dateOfSigningAContract;
     }
 
+    public String getDateOfFirstTrade() {
+        return dateOfFirstTrade;
+    }
+
+    public void setDateOfFirstTrade(String dateOfFirstTrade) {
+        this.dateOfFirstTrade = dateOfFirstTrade;
+    }
+
     public int getIdRiskManager() {
         return idRiskManager;
     }
@@ -110,6 +119,7 @@ public class Employee {
                 ", address='" + address + '\'' +
                 ", dateOfBirth='" + dateOfBirth + '\'' +
                 ", dateOfSigningAContract='" + dateOfSigningAContract + '\'' +
+                ", dateOfFirstTrade='" + dateOfFirstTrade + '\'' +
                 ", idRiskManager=" + idRiskManager +
                 '}';
     }

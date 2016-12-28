@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ua.kiev.smartgroup.configuration.AppConfig;
 import ua.kiev.smartgroup.controllers.EmployeeController;
+import ua.kiev.smartgroup.model.jdbc.JdbcEmployeeDao;
 import ua.kiev.smartgroup.model.jdbc.JdbcProcessorDao;
 
 
@@ -12,8 +13,9 @@ import ua.kiev.smartgroup.model.jdbc.JdbcProcessorDao;
  */
 public class Main {
 
-//    private EmployeeController employeeController;
+    private EmployeeController employeeController;
     private JdbcProcessorDao processorDao;
+    private JdbcEmployeeDao employeeDao;
 
 
     public static void main(String[] args) {
@@ -34,11 +36,14 @@ public class Main {
 
     private void start(){
 
-        System.out.println("All processors");
-        processorDao.loadAllList().forEach(System.out::println);
+        employeeDao.addNewEmployee(78, 1, "Петров", "Василий", "+380995665874", "","","","","",1);
+
+
+//        System.out.println("All processors");
+//        processorDao.loadAllList().forEach(System.out::println);
 
 //        employeeController.getAllEmployees().forEach(System.out::println);
-//        System.out.println(employeeController.getEmployeeById(3));
+//        System.out.println(employeeController.getEmployeeById(78));
     }
 
     public void setProcessorDao(JdbcProcessorDao processorDao) {
@@ -46,8 +51,13 @@ public class Main {
     }
 
 
-    //    public void setEmployeeController(EmployeeController employeeController) {
-//        this.employeeController = employeeController;
-//    }
+        public void setEmployeeController(EmployeeController employeeController) {
+        this.employeeController = employeeController;
+    }
+
+
+    public void setEmployeeDao(JdbcEmployeeDao employeeDao) {
+        this.employeeDao = employeeDao;
+    }
 }
 

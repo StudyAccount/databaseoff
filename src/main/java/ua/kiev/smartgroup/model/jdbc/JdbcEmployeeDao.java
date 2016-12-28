@@ -81,8 +81,44 @@ public class JdbcEmployeeDao implements EmployeeDao {
 
 
     @Override
-    public Employee addNewEmployee() {
-        return null;
+    public void addNewEmployee(int id, int idStatus, String lastName, String name, String phone,
+                                   String email, String address, String dateOfBirth, String dateOfSigningAContract,
+                                   String dateOfFirstTrade, int idRiskManager) {
+
+        LOGGER.info("Connecting to database");
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO EMPLOYEE VALUES(?,?,?,?,?,?,?,?,?,?,?)")){
+
+            LOGGER.info("Successfully connected to database");
+
+            statement.setInt(1, id);
+            statement.setInt(2, idStatus);
+            statement.setString(3, lastName);
+            statement.setString(4, name);
+            statement.setString(5, phone);
+            statement.setString(6, email);
+            statement.setString(7, address);
+            statement.setString(8, dateOfBirth);
+            statement.setString(9, dateOfSigningAContract);
+            statement.setString(10, dateOfFirstTrade);
+            statement.setInt(11, idRiskManager);
+
+            ResultSet resultSet = statement.executeQuery();
+            createEmployee(resultSet);
+//            if(resultSet.next()){
+//
+//                createEmployee(resultSet);
+//            }else {
+//
+//                throw new RuntimeException("Cannot add new employee ");
+//            }
+
+
+        } catch (SQLException exception) {
+            LOGGER.error("Exception occurred while connecting to database: ", exception);
+            throw new RuntimeException(exception);
+        }
     }
 
     @Override
@@ -110,6 +146,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
 //                employee.setDateOfFirstTrade(LocalDateTime.from(resultSet.getDate("DATE_OF_FIRST_TRADE").toLocalDate()));
         employee.setDateOfBirth(resultSet.getString("DATE_OF_BIRTH"));
         employee.setDateOfSigningAContract(resultSet.getString("DATE_OF_SIGNING_A_CONTRACT"));
+        employee.setDateOfSigningAContract(resultSet.getString("DATE_OF_FIRST_TRADE"));
         return employee;
     }
 

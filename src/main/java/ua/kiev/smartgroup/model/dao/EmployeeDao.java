@@ -13,7 +13,9 @@ public interface EmployeeDao {
 
     List<Employee> getAllEmployees();
 
-    Employee addNewEmployee();
+    void addNewEmployee(int id, int idStatus, String lastName, String name, String phone,
+                            String email, String address, String dateOfBirth, String dateOfSigningAContract,
+                            String dateOfFirstTrade, int idRiskManager);
 
     Employee deleteEmployee();
 
