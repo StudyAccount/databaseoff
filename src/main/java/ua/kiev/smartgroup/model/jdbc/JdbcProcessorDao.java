@@ -16,7 +16,6 @@ import java.util.List;
  */
 public class JdbcProcessorDao implements HardwareDao{
 
-    private Processor processor;
     private DataSource dataSource;
 
     public static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
@@ -71,17 +70,12 @@ public class JdbcProcessorDao implements HardwareDao{
     }
 
     private Processor createProcessor(ResultSet resultSet) throws SQLException{
-
+        Processor processor = new Processor();
         processor.setId(resultSet.getInt("ID"));
         processor.setName(resultSet.getString("NAME"));
 
         return processor;
 
-    }
-
-
-    public void setProcessor(Processor processor) {
-        this.processor = processor;
     }
 
     public void setDataSource(DataSource dataSource) {

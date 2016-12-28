@@ -3,6 +3,7 @@ package ua.kiev.smartgroup.configuration;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import ua.kiev.smartgroup.Main;
@@ -73,7 +74,7 @@ public class AppConfig {
     public JdbcEmployeeDao employeeDao() throws PropertyVetoException {
         JdbcEmployeeDao jdbcEmployeeDao = new JdbcEmployeeDao();
         jdbcEmployeeDao.setDataSource(dataSource());
-        jdbcEmployeeDao.setEmployee(employee());
+//        jdbcEmployeeDao.setEmployee(employee());
 
         return jdbcEmployeeDao;
     }
@@ -105,6 +106,7 @@ public class AppConfig {
     }
 
     @Bean
+    @Scope("prototype")
     public Processor processor(){
 
         return new Processor();
@@ -114,7 +116,7 @@ public class AppConfig {
     public JdbcProcessorDao processorDao() throws PropertyVetoException {
 
         JdbcProcessorDao processorDao = new JdbcProcessorDao();
-        processorDao.setProcessor(processor());
+//        processorDao.setProcessor(processor());
         processorDao.setDataSource(dataSource());
         return processorDao;
 
