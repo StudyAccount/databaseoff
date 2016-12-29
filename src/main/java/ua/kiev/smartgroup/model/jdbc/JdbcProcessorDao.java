@@ -50,23 +50,89 @@ public class JdbcProcessorDao implements HardwareDao{
     }
 
     @Override
-    public Processor addNewModel() {
-        return null;
+    public void addNewModel(int id, String name) {
+
+        LOGGER.info("Connecting to database");
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO PROCESSOR VALUES(?,?)")){
+
+            LOGGER.info("Successfully connected to database");
+
+            statement.setInt(1, id);
+            statement.setString(2, name);
+
+            statement.executeUpdate();
+
+
+        } catch (SQLException exception) {
+            LOGGER.error("Exception occurred while connecting to database: ", exception);
+            throw new RuntimeException(exception);
+        }
+
+
     }
 
     @Override
-    public Processor deleteModel() {
-        return null;
+    public void deleteModel(int id) {
+
+        LOGGER.info("Connecting to database");
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM PROCESSOR WHERE ID=?")) {
+
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+        }catch (SQLException exception) {
+            LOGGER.error("Exception occurred while connecting to database: ", exception);
+            throw new RuntimeException(exception);
+        }
+
     }
 
     @Override
-    public Processor loadByID() {
-        return null;
+    public Processor loadByID(int id) {
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM PROCESSOR WHERE ID = ?")){
+
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            if(resultSet.next()){
+
+                return createProcessor(resultSet);
+            }else {
+
+                throw new RuntimeException("Cannot not find processor wit id " + id);
+            }
+
+
+        } catch (SQLException exception) {
+            LOGGER.error("Exception occurred while connecting to database: ", exception);
+            throw new RuntimeException(exception);
+        }
     }
 
     @Override
-    public Processor modify() {
-        return null;
+    public void modify(int id, String name) {
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("UPDATE PROCESSOR SET NAME = ? WHERE ID = ?")) {
+
+            LOGGER.info("Successfully connected to database");
+
+            statement.setString(1, name);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+
+        }catch (SQLException exception) {
+            LOGGER.error("Exception occurred while connecting to database: ", exception);
+            throw new RuntimeException(exception);
+        }
+
+
     }
 
     private Processor createProcessor(ResultSet resultSet) throws SQLException{

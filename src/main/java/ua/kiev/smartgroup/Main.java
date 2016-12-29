@@ -36,6 +36,12 @@ public class Main {
 
     private void start(){
 
+//        processorDao.loadAllList().forEach(System.out::println);
+//        processorDao.loadByID(1);
+//        processorDao.addNewModel(78,"jktym");
+//        processorDao.addNewModel(77,"jktym");
+//        processorDao.modify(77,"t,fkf");
+//        processorDao.deleteModel(77);
 
 //        employeeDao.deleteEmployee(78);
 //        employeeDao.addNewEmployee(78, 0, "Петров", "Василий", "+380995665874", "","","","","",0);

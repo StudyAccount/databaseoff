@@ -9,12 +9,12 @@ public interface HardwareDao<T> {
 
     List<T> loadAllList();
 
-    T addNewModel();
+    void addNewModel(int id, String name);
 
-    T deleteModel();
+    void deleteModel(int id);
 
-    T loadByID();
+    T loadByID(int id);
 
-    T modify();
+    void modify(int id, String name);
 
 }
