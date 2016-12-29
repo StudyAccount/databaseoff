@@ -36,8 +36,11 @@ public class Main {
 
     private void start(){
 
-        employeeDao.addNewEmployee(78, 1, "Петров", "Василий", "+380995665874", "","","","","",1);
 
+//        employeeDao.deleteEmployee(78);
+//        employeeDao.addNewEmployee(78, 0, "Петров", "Василий", "+380995665874", "","","","","",0);
+//        employeeDao.modify(78, 1, "Петров", "uuu", "+380995665874", "","","","","",1);
+//
 
 //        System.out.println("All processors");
 //        processorDao.loadAllList().forEach(System.out::println);
