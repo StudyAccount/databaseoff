@@ -117,7 +117,8 @@ public class AppConfig {
     public JdbcProcessorDao processorDao() throws PropertyVetoException {
 
         JdbcProcessorDao processorDao = new JdbcProcessorDao();
-//        processorDao.setProcessor(processor());
+
+//        processorDao.setProcessor1(processor());
         processorDao.setDataSource(dataSource());
         return processorDao;
 

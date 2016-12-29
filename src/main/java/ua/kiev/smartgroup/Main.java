@@ -36,7 +36,7 @@ public class Main {
 
     private void start(){
 
-//        processorDao.loadAllList().forEach(System.out::println);
+        processorDao.loadAllList().forEach(System.out::println);
 //        processorDao.loadByID(1);
 //        processorDao.addNewModel(78,"jktym");
 //        processorDao.addNewModel(77,"jktym");

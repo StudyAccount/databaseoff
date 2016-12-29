@@ -105,7 +105,7 @@ public class JdbcProcessorDao implements HardwareDao{
                 return createProcessor(resultSet);
             }else {
 
-                throw new RuntimeException("Cannot not find processor wit id " + id);
+                throw new RuntimeException("Cannot not find processor1 wit id " + id);
             }
 
 
@@ -137,6 +137,7 @@ public class JdbcProcessorDao implements HardwareDao{
 
     private Processor createProcessor(ResultSet resultSet) throws SQLException{
         Processor processor = new Processor();
+
         processor.setId(resultSet.getInt("ID"));
         processor.setName(resultSet.getString("NAME"));
 
@@ -147,4 +148,6 @@ public class JdbcProcessorDao implements HardwareDao{
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
+
 }
