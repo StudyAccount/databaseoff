@@ -1,7 +1,7 @@
 package ua.kiev.smartgroup.model.jdbc;
 
 import ua.kiev.smartgroup.model.Hardware;
-import ua.kiev.smartgroup.model.Processor;
+import ua.kiev.smartgroup.model.VideoCard;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,17 +9,15 @@ import java.sql.SQLException;
 /**
  * Created by SleepWalker on 03.01.2017.
  */
-public class JdbcProcessorDao extends JdbcHardwareDao {
-
+public class JdbcVideoCardDao extends JdbcHardwareDao {
     @Override
     public Hardware createHardware(ResultSet resultSet) throws SQLException {
+        Hardware videoCard = new VideoCard();
 
-        Hardware processor = new Processor();
+        videoCard.setId(resultSet.getInt("ID"));
+        videoCard.setName(resultSet.getString("NAME"));
 
-        processor.setId(resultSet.getInt("ID"));
-        processor.setName(resultSet.getString("NAME"));
-
-        return processor;
-
+        return videoCard;
     }
 }
+

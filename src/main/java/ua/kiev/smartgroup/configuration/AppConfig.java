@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import ua.kiev.smartgroup.Main;
 import ua.kiev.smartgroup.controllers.EmployeeController;
 import ua.kiev.smartgroup.model.Employee;
+import ua.kiev.smartgroup.model.Hdd;
 import ua.kiev.smartgroup.model.Processor;
-import ua.kiev.smartgroup.model.jdbc.JdbcEmployeeDao;
-import ua.kiev.smartgroup.model.jdbc.JdbcProcessorDao;
+import ua.kiev.smartgroup.model.jdbc.*;
 
 import java.beans.PropertyVetoException;
 /**
@@ -28,6 +28,7 @@ public class AppConfig {
 
 
     @Bean
+    @Scope("prototype")
     public ComboPooledDataSource dataSource(
 //            @Value("${jdbc.driver.class}") String driverClass,
 //            @Value("${jdbc.url}") String jdbcUrl,
@@ -103,6 +104,12 @@ public class AppConfig {
         main.setEmployeeController(employeeController());
         main.setEmployeeDao(employeeDao());
         main.setProcessorDao(processorDao());
+        main.setHddDao(hddDao());
+        main.setMonitorModelDao(monitorModelDao());
+        main.setMotherboardDao(motherboardDao());
+        main.setSsdDao(ssdDao());
+        main.setVideoCardDao(videoCardDao());
+
         return main;
     }
 
@@ -118,9 +125,59 @@ public class AppConfig {
 
         JdbcProcessorDao processorDao = new JdbcProcessorDao();
 
-//        processorDao.setProcessor1(processor());
+        processorDao.setHardwareTable("PROCESSOR");
         processorDao.setDataSource(dataSource());
         return processorDao;
 
+    }
+
+    @Bean
+    public JdbcHddDao hddDao() throws PropertyVetoException {
+
+        JdbcHddDao hddDao = new JdbcHddDao();
+        hddDao.setHardwareTable("HDD");
+        hddDao.setDataSource(dataSource());
+        return hddDao;
+    }
+
+    @Bean
+    public Hdd hdd(){
+
+        return new Hdd();
+    }
+
+    @Bean
+    public JdbcMonitorModelDao monitorModelDao() throws PropertyVetoException {
+
+        JdbcMonitorModelDao monitorModelDao = new JdbcMonitorModelDao();
+        monitorModelDao.setHardwareTable("MONITOR_MODEL");
+        monitorModelDao.setDataSource(dataSource());
+        return monitorModelDao;
+    }
+
+    @Bean
+    public JdbcSsdDao ssdDao() throws PropertyVetoException {
+
+        JdbcSsdDao ssdDao = new JdbcSsdDao();
+        ssdDao.setHardwareTable("SSD");
+        ssdDao.setDataSource(dataSource());
+        return ssdDao;
+    }
+
+    @Bean
+    public JdbcVideoCardDao videoCardDao() throws PropertyVetoException {
+
+        JdbcVideoCardDao videoCardDao = new JdbcVideoCardDao();
+        videoCardDao.setHardwareTable("VIDEOCARD");
+        videoCardDao.setDataSource(dataSource());
+        return videoCardDao;
+    }
+
+    @Bean
+    public JdbcMotherboardDao motherboardDao() throws PropertyVetoException {
+        JdbcMotherboardDao motherboardDao = new JdbcMotherboardDao();
+        motherboardDao.setHardwareTable("MOTHERBOARD");
+        motherboardDao.setDataSource(dataSource());
+        return motherboardDao;
     }
 }

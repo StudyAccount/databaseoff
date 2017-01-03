@@ -1,5 +1,9 @@
 package ua.kiev.smartgroup.model.dao;
 
+import ua.kiev.smartgroup.model.Hardware;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**

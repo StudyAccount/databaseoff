@@ -1,12 +1,12 @@
 package ua.kiev.smartgroup.model;
 
 /**
- * Created by SleepWalker on 23.12.2016.
+ * Created by SleepWalker on 03.01.2017.
  */
-public class Videocard {
+public class Hardware {
 
-    private int id;
-    private String name;
+    int id;
+    String name;
 
     public int getId() {
         return id;
@@ -23,4 +23,6 @@ public class Videocard {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }
