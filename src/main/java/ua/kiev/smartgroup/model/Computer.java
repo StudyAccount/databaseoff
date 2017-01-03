@@ -11,7 +11,7 @@ public class Computer {
     private String ram;
     private String dateOfIncome;
     private float priceInUSD;
-    private float priveInUAH;
+    private float priceInUAH;
     private int idEmployee;
 
     public int getId() {
@@ -62,12 +62,12 @@ public class Computer {
         this.priceInUSD = priceInUSD;
     }
 
-    public float getPriveInUAH() {
-        return priveInUAH;
+    public float getPriceInUAH() {
+        return priceInUAH;
     }
 
-    public void setPriveInUAH(float priveInUAH) {
-        this.priveInUAH = priveInUAH;
+    public void setPriceInUAH(float priceInUAH) {
+        this.priceInUAH = priceInUAH;
     }
 
     public int getIdEmployee() {
