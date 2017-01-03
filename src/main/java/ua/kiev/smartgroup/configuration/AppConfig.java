@@ -109,6 +109,7 @@ public class AppConfig {
         main.setMotherboardDao(motherboardDao());
         main.setSsdDao(ssdDao());
         main.setVideoCardDao(videoCardDao());
+        main.setComputerDao(computerDao());
 
         return main;
     }
@@ -179,5 +180,13 @@ public class AppConfig {
         motherboardDao.setHardwareTable("MOTHERBOARD");
         motherboardDao.setDataSource(dataSource());
         return motherboardDao;
+    }
+
+    @Bean
+    public  JdbcComputerDao computerDao() throws PropertyVetoException {
+
+        JdbcComputerDao computerDao = new JdbcComputerDao();
+        computerDao.setDataSource(dataSource());
+        return computerDao;
     }
 }

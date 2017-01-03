@@ -1,6 +1,5 @@
 package ua.kiev.smartgroup.model.dao;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 import ua.kiev.smartgroup.model.Computer;
 
 import java.util.List;
@@ -12,12 +11,14 @@ public interface ComputerDao {
 
     List<Computer> loadAllComputers();
 
-    Computer addNewComputer();
+    Computer loadComputerByID(int id);
 
-    Computer deleteComputer();
+    void addNewComputer(int id, String name, int idMotherboard,  String ram, String dateOfIncome, float priceInUSD,
+                        float priceInUAH, int idEmployee);
 
-    Computer loadComputer();
+    void deleteComputer(int id);
 
-    Computer modify();
+    void modify(int id, String name, int idMotherboard,  String ram, String dateOfIncome, float priceInUSD,
+                float priceInUAH, int idEmployee);
 
 }

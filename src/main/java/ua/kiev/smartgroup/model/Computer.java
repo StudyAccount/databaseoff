@@ -77,4 +77,18 @@ public class Computer {
     public void setIdEmployee(int idEmployee) {
         this.idEmployee = idEmployee;
     }
+
+    @Override
+    public String toString() {
+        return "Computer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", idMotherboard=" + idMotherboard +
+                ", ram='" + ram + '\'' +
+                ", dateOfIncome='" + dateOfIncome + '\'' +
+                ", priceInUSD=" + priceInUSD +
+                ", priceInUAH=" + priceInUAH +
+                ", idEmployee=" + idEmployee +
+                '}';
+    }
 }

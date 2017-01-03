@@ -106,7 +106,7 @@ public class JdbcHardwareDao implements HardwareDao{
                 return createHardware(resultSet);
             }else {
 
-                throw new RuntimeException("Cannot not find processor1 wit id " + id);
+                throw new RuntimeException("Cannot not find hardware wit id " + id);
             }
 
 
