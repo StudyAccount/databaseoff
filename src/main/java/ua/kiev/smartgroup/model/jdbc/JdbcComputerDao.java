@@ -20,58 +20,6 @@ public class JdbcComputerDao extends JdbcBaseTableDao implements ComputerDao {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
-//    @Override
-//    public List<Computer> loadAllList() {
-//
-//        LOGGER.info("Connecting to database");
-//        List<Computer> result = new ArrayList<>();
-//
-//        try (Connection connection = dataSource.getConnection();
-//             Statement statement = connection.createStatement()){
-//
-//            LOGGER.info("Successfully connected to database");
-//
-//            String sql = "SELECT * FROM COMPUTER";
-//
-//            ResultSet resultSet = statement.executeQuery(sql);
-//
-//            while (resultSet.next()){
-//                Computer computer = createComputer(resultSet);
-//                result.add(computer);
-//            }
-//
-//        } catch (SQLException exception) {
-//            LOGGER.error("Exception occurred while connecting to database: ", exception);
-//            throw new RuntimeException(exception);
-//        }
-//
-//        return result;
-//
-//    }
-
-//    @Override
-//    public Computer loadByID(int id) {
-//        try (Connection connection = dataSource.getConnection();
-//             PreparedStatement statement = connection.prepareStatement("SELECT * FROM COMPUTER WHERE ID = ?")){
-//
-//            statement.setInt(1, id);
-//            ResultSet resultSet = statement.executeQuery();
-//
-//            if(resultSet.next()){
-//
-//                return createComputer(resultSet);
-//            }else {
-//
-//                throw new RuntimeException("Cannot not find computer wit id " + id);
-//            }
-//
-//
-//        } catch (SQLException exception) {
-//            LOGGER.error("Exception occurred while connecting to database: ", exception);
-//            throw new RuntimeException(exception);
-//        }
-//    }
-
     @Override
     public void addNewComputer(int id, String name, int idMotherboard, String ram, String dateOfIncome,
                                float priceInUSD, float priceInUAH, int idEmployee) {
@@ -113,24 +61,6 @@ public class JdbcComputerDao extends JdbcBaseTableDao implements ComputerDao {
             throw new RuntimeException(exception);
         }
     }
-
-//    @Override
-//    public void deleteEntry(int id) {
-//
-//        LOGGER.info("Connecting to database");
-//
-//        try (Connection connection = dataSource.getConnection();
-//             PreparedStatement statement = connection.prepareStatement("DELETE FROM COMPUTER WHERE ID=?")) {
-//
-//            statement.setInt(1, id);
-//            statement.executeUpdate();
-//
-//        }catch (SQLException exception) {
-//            LOGGER.error("Exception occurred while connecting to database: ", exception);
-//            throw new RuntimeException(exception);
-//        }
-//
-//    }
 
     @Override
     public void modify(int id, String name, int idMotherboard, String ram, String dateOfIncome,

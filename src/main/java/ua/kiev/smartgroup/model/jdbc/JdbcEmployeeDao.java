@@ -2,16 +2,12 @@ package ua.kiev.smartgroup.model.jdbc;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import ua.kiev.smartgroup.Main;
 import ua.kiev.smartgroup.model.Employee;
 import ua.kiev.smartgroup.model.dao.EmployeeDao;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by User on 13.12.2016.
@@ -22,62 +18,6 @@ public class JdbcEmployeeDao extends JdbcBaseTableDao implements EmployeeDao {
 
 
     public static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
-//
-//    @Override
-//    @Transactional(propagation = Propagation.MANDATORY)
-//    public Employee loadEmployee(int id){
-//
-//        try (Connection connection = dataSource.getConnection();
-//             PreparedStatement statement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE ID = ?")){
-//
-//            statement.setInt(1, id);
-//            ResultSet resultSet = statement.executeQuery();
-//
-//            if(resultSet.next()){
-//
-//                return createEmployee(resultSet);
-//            }else {
-//
-//                throw new RuntimeException("Cannot not find employee wit id " + id);
-//            }
-//
-//
-//        } catch (SQLException exception) {
-//            LOGGER.error("Exception occurred while connecting to database: ", exception);
-//            throw new RuntimeException(exception);
-//        }
-//
-//    }
-//
-//    @Override
-//    @Transactional(propagation = Propagation.MANDATORY)
-//    public List<Employee> getAllEmployees(){
-//
-//        LOGGER.info("Connecting to database");
-//        List<Employee> result = new ArrayList<>();
-//
-//        try (Connection connection = dataSource.getConnection();
-//             Statement statement = connection.createStatement()){
-//
-//            LOGGER.info("Successfully connected to database");
-//
-//            String sql = "SELECT * FROM EMPLOYEE";
-//
-//            ResultSet resultSet = statement.executeQuery(sql);
-//
-//            while (resultSet.next()){
-//                Employee employee = createEmployee(resultSet);
-//                result.add(employee);
-//            }
-//
-//        } catch (SQLException exception) {
-//            LOGGER.error("Exception occurred while connecting to database: ", exception);
-//            throw new RuntimeException(exception);
-//        }
-//
-//        return result;
-//
-//    }
 
     @Override
     public void addNewEmployee(int id, int idStatus, String lastName, String name, String phone,
@@ -122,23 +62,6 @@ public class JdbcEmployeeDao extends JdbcBaseTableDao implements EmployeeDao {
             throw new RuntimeException(exception);
         }
     }
-
-//    @Override
-//    public void deleteEmployee(int id) {
-//
-//        LOGGER.info("Connecting to database");
-//
-//        try (Connection connection = dataSource.getConnection();
-//             PreparedStatement statement = connection.prepareStatement("DELETE FROM EMPLOYEE WHERE ID=?")) {
-//
-//            statement.setInt(1, id);
-//            statement.executeUpdate();
-//
-//        }catch (SQLException exception) {
-//            LOGGER.error("Exception occurred while connecting to database: ", exception);
-//            throw new RuntimeException(exception);
-//        }
-//    }
 
     @Override
     public void modify(int id, int idStatus, String lastName, String name, String phone,

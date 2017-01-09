@@ -9,15 +9,10 @@ import java.util.List;
  */
 public interface EmployeeDao extends BaseTableDao{
 
-//    Employee loadEmployee(int id);
-
-//    List<Employee> getAllEmployees();
 
     void addNewEmployee(int id, int idStatus, String lastName, String name, String phone,
                             String email, String address, String dateOfBirth, String dateOfSigningAContract,
                             String dateOfFirstTrade, int idRiskManager);
-
-//    void deleteEmployee(int id);
 
     void modify(int id, int idStatus, String lastName, String name, String phone,
                 String email, String address, String dateOfBirth, String dateOfSigningAContract,
