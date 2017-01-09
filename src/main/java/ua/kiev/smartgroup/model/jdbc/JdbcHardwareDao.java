@@ -14,7 +14,7 @@ import java.sql.*;
 public class JdbcHardwareDao extends JdbcBaseTableDao implements HardwareDao{
 
     private DataSource newDataSource;
-    private String tableName;
+    private String hardwareName;
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
@@ -26,7 +26,7 @@ public class JdbcHardwareDao extends JdbcBaseTableDao implements HardwareDao{
         LOGGER.info("Connecting to database");
 
         try (Connection connection = newDataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO " + tableName + " VALUES(?,?)")){
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO " + hardwareName + " VALUES(?,?)")){
 
             LOGGER.info("Successfully connected to database");
 
@@ -48,7 +48,7 @@ public class JdbcHardwareDao extends JdbcBaseTableDao implements HardwareDao{
     public void modify(int id, String name) {
 
         try (Connection connection = newDataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("UPDATE " + tableName + " SET NAME = ? WHERE ID = ?")) {
+             PreparedStatement statement = connection.prepareStatement("UPDATE " + hardwareName + " SET NAME = ? WHERE ID = ?")) {
 
             LOGGER.info("Successfully connected to database");
 
@@ -61,6 +61,10 @@ public class JdbcHardwareDao extends JdbcBaseTableDao implements HardwareDao{
         }
 
 
+    }
+
+    public void setHardwareName(String hardwareName) {
+        this.hardwareName = hardwareName;
     }
 
     public void setNewDataSource(DataSource dataSource) {

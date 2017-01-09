@@ -8,8 +8,6 @@ import ua.kiev.smartgroup.model.dao.ComputerDao;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by SleepWalker on 03.01.2017.

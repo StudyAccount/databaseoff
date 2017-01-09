@@ -68,19 +68,11 @@ public class AppConfig {
 
 
     @Bean
-    public Employee employee(){
-
-        return new Employee();
-    }
-
-    @Bean
     public JdbcEmployeeDao employeeDao() throws PropertyVetoException {
         JdbcEmployeeDao employeeDao = new JdbcEmployeeDao();
         employeeDao.setDataSource(dataSource());
         employeeDao.setNewDataSource(dataSource());
         employeeDao.setTableName("EMPLOYEE");
-
-//        jdbcEmployeeDao.setEmployee(employee());
 
         return employeeDao;
     }
@@ -120,18 +112,12 @@ public class AppConfig {
     }
 
     @Bean
-    @Scope("prototype")
-    public Processor processor(){
-
-        return new Processor();
-    }
-
-    @Bean
     public JdbcProcessorDao processorDao() throws PropertyVetoException {
 
         JdbcProcessorDao processorDao = new JdbcProcessorDao();
 
         processorDao.setTableName("PROCESSOR");
+        processorDao.setHardwareName("PROCESSOR");
         processorDao.setDataSource(dataSource());
         processorDao.setNewDataSource(dataSource());
         return processorDao;
@@ -143,23 +129,24 @@ public class AppConfig {
 
         JdbcHddDao hddDao = new JdbcHddDao();
         hddDao.setTableName("HDD");
+        hddDao.setHardwareName("HDD");
         hddDao.setDataSource(dataSource());
         hddDao.setNewDataSource(dataSource());
         return hddDao;
     }
 
-    @Bean
-    public Hdd hdd(){
-
-        return new Hdd();
-    }
+//    @Bean
+//    public Hdd hdd(){
+//
+//        return new Hdd();
+//    }
 
     @Bean
     public JdbcMonitorModelDao monitorModelDao() throws PropertyVetoException {
 
         JdbcMonitorModelDao monitorModelDao = new JdbcMonitorModelDao();
-//        monitorModelDao.setHardwareTable("MONITOR_MODEL");
         monitorModelDao.setTableName("MONITOR_MODEL");
+        monitorModelDao.setHardwareName("MONITOR_MODEL");
         monitorModelDao.setDataSource(dataSource());
         monitorModelDao.setNewDataSource(dataSource());
         return monitorModelDao;
@@ -170,6 +157,7 @@ public class AppConfig {
 
         JdbcSsdDao ssdDao = new JdbcSsdDao();
         ssdDao.setTableName("SSD");
+        ssdDao.setHardwareName("SSD");
         ssdDao.setDataSource(dataSource());
         ssdDao.setNewDataSource(dataSource());
         return ssdDao;
@@ -180,6 +168,7 @@ public class AppConfig {
 
         JdbcVideoCardDao videoCardDao = new JdbcVideoCardDao();
         videoCardDao.setTableName("VIDEOCARD");
+        videoCardDao.setHardwareName("VIDEOCARD");
         videoCardDao.setDataSource(dataSource());
         videoCardDao.setNewDataSource(dataSource());
         return videoCardDao;
@@ -189,6 +178,7 @@ public class AppConfig {
     public JdbcMotherboardDao motherboardDao() throws PropertyVetoException {
         JdbcMotherboardDao motherboardDao = new JdbcMotherboardDao();
         motherboardDao.setTableName("MOTHERBOARD");
+        motherboardDao.setHardwareName("MOTHERBOARD");
         motherboardDao.setDataSource(dataSource());
         motherboardDao.setNewDataSource(dataSource());
         return motherboardDao;
@@ -203,13 +193,5 @@ public class AppConfig {
         computerDao.setNewDataSource(dataSource());
         return computerDao;
     }
-//
-//    @Bean
-//    public JdbcBaseTableDao baseTableDao() throws PropertyVetoException {
-//
-//        JdbcBaseTableDao baseTableDao = new JdbcBaseTableDao();
-//        baseTableDao.setDataSource(dataSource());
-//        return baseTableDao;
-//    }
 
 }
