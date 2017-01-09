@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class JdbcProcessorDao extends JdbcHardwareDao {
 
     @Override
-    public Hardware createHardware(ResultSet resultSet) throws SQLException {
+    public Hardware createTable(ResultSet resultSet) throws SQLException {
 
         Hardware processor = new Processor();
 

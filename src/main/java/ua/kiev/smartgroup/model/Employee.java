@@ -3,9 +3,8 @@ package ua.kiev.smartgroup.model;
 /**
  * Created by User on 13.12.2016.
  */
-public class Employee {
+public class Employee extends BaseTable {
 
-    private int id;
     private int idStatus;
     private String lastName;
     private String name;
@@ -16,16 +15,6 @@ public class Employee {
     private String dateOfSigningAContract;
     private String dateOfFirstTrade;
     private int idRiskManager;
-
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getIdStatus() {
         return idStatus;

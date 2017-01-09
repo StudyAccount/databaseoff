@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public class JdbcMotherboardDao extends JdbcHardwareDao {
     @Override
-    public Hardware createHardware(ResultSet resultSet) throws SQLException {
+    public Hardware createTable(ResultSet resultSet) throws SQLException {
         Hardware motherboard = new Motherboard();
 
         motherboard.setId(resultSet.getInt("ID"));

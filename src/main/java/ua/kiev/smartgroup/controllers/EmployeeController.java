@@ -19,14 +19,16 @@ public class EmployeeController {
     @Transactional
     public List<Employee> getAllEmployees(){
 
-       return employeeDao.getAllEmployees();
+//       return employeeDao.getAllEmployees();
+        return null;
 
     }
 
     @Transactional
     public Employee getEmployeeById(int id){
 
-        return employeeDao.loadEmployee(id);
+//        return employeeDao.loadEmployee(id);
+        return null;
     }
 
 

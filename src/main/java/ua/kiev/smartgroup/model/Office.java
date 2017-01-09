@@ -3,18 +3,9 @@ package ua.kiev.smartgroup.model;
 /**
  * Created by SleepWalker on 23.12.2016.
  */
-public class Office {
+public class Office extends BaseTable{
 
-    private int id;
     private String name;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -22,5 +13,13 @@ public class Office {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Office{" +
+                "id=" + id +
+                "name='" + name + '\'' +
+                '}';
     }
 }

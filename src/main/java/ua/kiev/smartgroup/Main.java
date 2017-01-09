@@ -46,8 +46,11 @@ public class Main {
 
     private void start(){
 //
-//        computerDao.loadAllComputers().forEach(System.out::println);
-//        computerDao.deleteComputer(22);
+        computerDao.loadAllList().forEach(System.out::println);
+        computerDao.deleteEntry(22);
+        System.out.printf("--------------------");
+        System.out.println(computerDao.loadByID(3).toString());
+        System.out.printf("--------------------");
 //        computerDao.loadAllComputers().forEach(System.out::println);
 //        computerDao.addNewComputer(22,"o",1,"ss","",0,0,2);
 //        computerDao.loadAllComputers().forEach(System.out::println);
@@ -55,10 +58,10 @@ public class Main {
 //        computerDao.loadAllComputers().forEach(System.out::println);
 //        Computer computer = computerDao.loadComputerByID(1);
 //        System.out.println(computer);
-//        computerDao.loadAllComputers().forEach(System.out::println);
-//        computerDao.modify(22,"o",1,"qqqq","",0,0,2);
-//        computerDao.loadAllComputers().forEach(System.out::println);
-//        processorDao.loadAllList("PROCESSOR").forEach(System.out::println);
+        computerDao.loadAllList().forEach(System.out::println);
+        computerDao.modify(22,"o",1,"qqqq","",0,0,2);
+        computerDao.loadAllList().forEach(System.out::println);
+//        processorDao.loadAllList().forEach(System.out::println);
 //        hddDao.loadAllList("HDD").forEach(System.out::println);
 //        monitorModelDao.loadAllList("MONITOR_MODEL").forEach(System.out::println);
 //        motherboardDao.loadAllList("MOTHERBOARD").forEach(System.out::println);
@@ -82,7 +85,7 @@ public class Main {
 //        processorDao.addNewModel("PROCESSOR", 78,"jktym");
 //        processorDao.addNewModel(77,"jktym");
 //        processorDao.modify("PROCESSOR", 77,"t,fkf");
-//        processorDao.deleteModel("PROCESSOR", 77);
+//        processorDao.deleteEntry("PROCESSOR", 77);
 
 //        employeeDao.deleteEmployee(78);
 //        employeeDao.addNewEmployee(78, 0, "Петров", "Василий", "+380995665874", "","","","","",0);

@@ -8,11 +8,13 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import ua.kiev.smartgroup.Main;
 import ua.kiev.smartgroup.controllers.EmployeeController;
+import ua.kiev.smartgroup.model.BaseTable;
 import ua.kiev.smartgroup.model.Employee;
 import ua.kiev.smartgroup.model.Hdd;
 import ua.kiev.smartgroup.model.Processor;
 import ua.kiev.smartgroup.model.jdbc.*;
 
+import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 /**
  * Created by User on 23.11.2016.
@@ -73,11 +75,14 @@ public class AppConfig {
 
     @Bean
     public JdbcEmployeeDao employeeDao() throws PropertyVetoException {
-        JdbcEmployeeDao jdbcEmployeeDao = new JdbcEmployeeDao();
-        jdbcEmployeeDao.setDataSource(dataSource());
+        JdbcEmployeeDao employeeDao = new JdbcEmployeeDao();
+        employeeDao.setDataSource(dataSource());
+        employeeDao.setNewDataSource(dataSource());
+        employeeDao.setTableName("EMPLOYEE");
+
 //        jdbcEmployeeDao.setEmployee(employee());
 
-        return jdbcEmployeeDao;
+        return employeeDao;
     }
 
     @Bean
@@ -126,8 +131,9 @@ public class AppConfig {
 
         JdbcProcessorDao processorDao = new JdbcProcessorDao();
 
-        processorDao.setHardwareTable("PROCESSOR");
+        processorDao.setTableName("PROCESSOR");
         processorDao.setDataSource(dataSource());
+        processorDao.setNewDataSource(dataSource());
         return processorDao;
 
     }
@@ -136,8 +142,9 @@ public class AppConfig {
     public JdbcHddDao hddDao() throws PropertyVetoException {
 
         JdbcHddDao hddDao = new JdbcHddDao();
-        hddDao.setHardwareTable("HDD");
+        hddDao.setTableName("HDD");
         hddDao.setDataSource(dataSource());
+        hddDao.setNewDataSource(dataSource());
         return hddDao;
     }
 
@@ -151,8 +158,10 @@ public class AppConfig {
     public JdbcMonitorModelDao monitorModelDao() throws PropertyVetoException {
 
         JdbcMonitorModelDao monitorModelDao = new JdbcMonitorModelDao();
-        monitorModelDao.setHardwareTable("MONITOR_MODEL");
+//        monitorModelDao.setHardwareTable("MONITOR_MODEL");
+        monitorModelDao.setTableName("MONITOR_MODEL");
         monitorModelDao.setDataSource(dataSource());
+        monitorModelDao.setNewDataSource(dataSource());
         return monitorModelDao;
     }
 
@@ -160,8 +169,9 @@ public class AppConfig {
     public JdbcSsdDao ssdDao() throws PropertyVetoException {
 
         JdbcSsdDao ssdDao = new JdbcSsdDao();
-        ssdDao.setHardwareTable("SSD");
+        ssdDao.setTableName("SSD");
         ssdDao.setDataSource(dataSource());
+        ssdDao.setNewDataSource(dataSource());
         return ssdDao;
     }
 
@@ -169,16 +179,18 @@ public class AppConfig {
     public JdbcVideoCardDao videoCardDao() throws PropertyVetoException {
 
         JdbcVideoCardDao videoCardDao = new JdbcVideoCardDao();
-        videoCardDao.setHardwareTable("VIDEOCARD");
+        videoCardDao.setTableName("VIDEOCARD");
         videoCardDao.setDataSource(dataSource());
+        videoCardDao.setNewDataSource(dataSource());
         return videoCardDao;
     }
 
     @Bean
     public JdbcMotherboardDao motherboardDao() throws PropertyVetoException {
         JdbcMotherboardDao motherboardDao = new JdbcMotherboardDao();
-        motherboardDao.setHardwareTable("MOTHERBOARD");
+        motherboardDao.setTableName("MOTHERBOARD");
         motherboardDao.setDataSource(dataSource());
+        motherboardDao.setNewDataSource(dataSource());
         return motherboardDao;
     }
 
@@ -187,6 +199,17 @@ public class AppConfig {
 
         JdbcComputerDao computerDao = new JdbcComputerDao();
         computerDao.setDataSource(dataSource());
+        computerDao.setTableName("COMPUTER");
+        computerDao.setNewDataSource(dataSource());
         return computerDao;
     }
+//
+//    @Bean
+//    public JdbcBaseTableDao baseTableDao() throws PropertyVetoException {
+//
+//        JdbcBaseTableDao baseTableDao = new JdbcBaseTableDao();
+//        baseTableDao.setDataSource(dataSource());
+//        return baseTableDao;
+//    }
+
 }

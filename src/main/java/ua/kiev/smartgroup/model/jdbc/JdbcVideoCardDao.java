@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public class JdbcVideoCardDao extends JdbcHardwareDao {
     @Override
-    public Hardware createHardware(ResultSet resultSet) throws SQLException {
+    public Hardware createTable(ResultSet resultSet) throws SQLException {
         Hardware videoCard = new VideoCard();
 
         videoCard.setId(resultSet.getInt("ID"));

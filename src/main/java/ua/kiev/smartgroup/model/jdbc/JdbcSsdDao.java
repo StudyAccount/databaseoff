@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public class JdbcSsdDao extends JdbcHardwareDao {
     @Override
-    public Hardware createHardware(ResultSet resultSet) throws SQLException {
+    public Hardware createTable(ResultSet resultSet) throws SQLException {
         Hardware ssd = new Ssd();
 
         ssd.setId(resultSet.getInt("ID"));

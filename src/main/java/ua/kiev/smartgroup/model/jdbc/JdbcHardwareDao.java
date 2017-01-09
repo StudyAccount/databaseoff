@@ -14,51 +14,53 @@ import java.util.List;
 /**
  * Created by SleepWalker on 27.12.2016.
  */
-public class JdbcHardwareDao implements HardwareDao{
+public class JdbcHardwareDao extends JdbcBaseTableDao implements HardwareDao{
 
-    private DataSource dataSource;
+    private DataSource newDataSource;
     private String hardwareTable;
-
-    public static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
-
+    private String tableName;
 
 
-    @Override
-    public List<Hardware> loadAllList() {
-
-        List<Hardware> result = new ArrayList<>();
-
-        try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement()){
-
-            LOGGER.info("Successfully connected to database");
-
-            String sql = "SELECT * FROM " + hardwareTable;
-
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            while (resultSet.next()){
-                Hardware hardware = createHardware(resultSet);
-                result.add(hardware);
-            }
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
 
-        }catch (SQLException exception){
-            LOGGER.error("Exception occurred while connecting to database: ", exception);
-            throw new RuntimeException(exception);
-        }
 
-
-        return result;
-    }
+//    @Override
+//    public List<Hardware> loadAllList() {
+//
+//        List<Hardware> result = new ArrayList<>();
+//
+//        try (Connection connection = dataSource.getConnection();
+//             Statement statement = connection.createStatement()){
+//
+//            LOGGER.info("Successfully connected to database");
+//
+//            String sql = "SELECT * FROM " + hardwareTable;
+//
+//            ResultSet resultSet = statement.executeQuery(sql);
+//
+//            while (resultSet.next()){
+//                Hardware hardware = createHardware(resultSet);
+//                result.add(hardware);
+//            }
+//
+//
+//        }catch (SQLException exception){
+//            LOGGER.error("Exception occurred while connecting to database: ", exception);
+//            throw new RuntimeException(exception);
+//        }
+//
+//
+//        return result;
+//    }
 
     @Override
     public void addNewModel(int id, String name) {
 
         LOGGER.info("Connecting to database");
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO " + hardwareTable + " VALUES(?,?)")){
+        try (Connection connection = newDataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO " + tableName + " VALUES(?,?)")){
 
             LOGGER.info("Successfully connected to database");
 
@@ -76,51 +78,51 @@ public class JdbcHardwareDao implements HardwareDao{
 
     }
 
-    @Override
-    public void deleteModel(int id) {
+//    @Override
+//    public void deleteEntry(int id) {
+//
+//        LOGGER.info("Connecting to database");
+//
+//        try (Connection connection = dataSource.getConnection();
+//             PreparedStatement statement = connection.prepareStatement("DELETE FROM " + hardwareTable + " WHERE ID=?")) {
+//
+//            statement.setInt(1, id);
+//            statement.executeUpdate();
+//
+//        }catch (SQLException exception) {
+//            LOGGER.error("Exception occurred while connecting to database: ", exception);
+//            throw new RuntimeException(exception);
+//        }
+//
+//    }
 
-        LOGGER.info("Connecting to database");
-
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM " + hardwareTable + " WHERE ID=?")) {
-
-            statement.setInt(1, id);
-            statement.executeUpdate();
-
-        }catch (SQLException exception) {
-            LOGGER.error("Exception occurred while connecting to database: ", exception);
-            throw new RuntimeException(exception);
-        }
-
-    }
-
-    @Override
-    public Hardware loadByID(int id) {
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + hardwareTable + " WHERE ID = ?")){
-
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-
-            if(resultSet.next()){
-                return createHardware(resultSet);
-            }else {
-
-                throw new RuntimeException("Cannot not find hardware wit id " + id);
-            }
-
-
-        } catch (SQLException exception) {
-            LOGGER.error("Exception occurred while connecting to database: ", exception);
-            throw new RuntimeException(exception);
-        }
-    }
+//    @Override
+//    public Hardware loadByID(int id) {
+//        try (Connection connection = dataSource.getConnection();
+//             PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + hardwareTable + " WHERE ID = ?")){
+//
+//            statement.setInt(1, id);
+//            ResultSet resultSet = statement.executeQuery();
+//
+//            if(resultSet.next()){
+//                return createHardware(resultSet);
+//            }else {
+//
+//                throw new RuntimeException("Cannot not find hardware wit id " + id);
+//            }
+//
+//
+//        } catch (SQLException exception) {
+//            LOGGER.error("Exception occurred while connecting to database: ", exception);
+//            throw new RuntimeException(exception);
+//        }
+//    }
 
     @Override
     public void modify(int id, String name) {
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("UPDATE " + hardwareTable + " SET NAME = ? WHERE ID = ?")) {
+        try (Connection connection = newDataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("UPDATE " + tableName + " SET NAME = ? WHERE ID = ?")) {
 
             LOGGER.info("Successfully connected to database");
 
@@ -141,12 +143,12 @@ public class JdbcHardwareDao implements HardwareDao{
         return new Hardware();
     }
 
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public void setNewDataSource(DataSource dataSource) {
+        this.newDataSource = dataSource;
     }
 
-    public void setHardwareTable(String hardwareTable) {
-        this.hardwareTable = hardwareTable;
-    }
+//    public void setHardwareTable(String hardwareTable) {
+//        this.hardwareTable = hardwareTable;
+//    }
 
 }

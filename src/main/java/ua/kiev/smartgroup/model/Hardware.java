@@ -3,18 +3,9 @@ package ua.kiev.smartgroup.model;
 /**
  * Created by SleepWalker on 03.01.2017.
  */
-public class Hardware {
+public class Hardware extends BaseTable{
 
-    int id;
     String name;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

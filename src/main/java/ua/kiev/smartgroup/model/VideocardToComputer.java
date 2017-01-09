@@ -6,7 +6,7 @@ package ua.kiev.smartgroup.model;
 public class VideocardToComputer {
 
     private int idComputer;
-    private int idVideocard;
+    private int idVideoCard;
 
     public int getIdComputer() {
         return idComputer;
@@ -16,11 +16,11 @@ public class VideocardToComputer {
         this.idComputer = idComputer;
     }
 
-    public int getIdVideocard() {
-        return idVideocard;
+    public int getIdVideoCard() {
+        return idVideoCard;
     }
 
-    public void setIdVideocard(int idVideocard) {
-        this.idVideocard = idVideocard;
+    public void setIdVideoCard(int idVideoCard) {
+        this.idVideoCard = idVideoCard;
     }
 }

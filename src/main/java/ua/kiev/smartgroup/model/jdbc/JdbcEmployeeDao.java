@@ -16,68 +16,68 @@ import java.util.List;
 /**
  * Created by User on 13.12.2016.
  */
-public class JdbcEmployeeDao implements EmployeeDao {
+public class JdbcEmployeeDao extends JdbcBaseTableDao implements EmployeeDao {
 
-    private DataSource dataSource;
+    private DataSource newDataSource;
 
 
     public static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
-
-    @Override
-    @Transactional(propagation = Propagation.MANDATORY)
-    public Employee loadEmployee(int id){
-
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE ID = ?")){
-
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-
-            if(resultSet.next()){
-
-                return createEmployee(resultSet);
-            }else {
-
-                throw new RuntimeException("Cannot not find employee wit id " + id);
-            }
-
-
-        } catch (SQLException exception) {
-            LOGGER.error("Exception occurred while connecting to database: ", exception);
-            throw new RuntimeException(exception);
-        }
-
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.MANDATORY)
-    public List<Employee> getAllEmployees(){
-
-        LOGGER.info("Connecting to database");
-        List<Employee> result = new ArrayList<>();
-
-        try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement()){
-
-            LOGGER.info("Successfully connected to database");
-
-            String sql = "SELECT * FROM EMPLOYEE";
-
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            while (resultSet.next()){
-                Employee employee = createEmployee(resultSet);
-                result.add(employee);
-            }
-
-        } catch (SQLException exception) {
-            LOGGER.error("Exception occurred while connecting to database: ", exception);
-            throw new RuntimeException(exception);
-        }
-
-        return result;
-
-    }
+//
+//    @Override
+//    @Transactional(propagation = Propagation.MANDATORY)
+//    public Employee loadEmployee(int id){
+//
+//        try (Connection connection = dataSource.getConnection();
+//             PreparedStatement statement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE ID = ?")){
+//
+//            statement.setInt(1, id);
+//            ResultSet resultSet = statement.executeQuery();
+//
+//            if(resultSet.next()){
+//
+//                return createEmployee(resultSet);
+//            }else {
+//
+//                throw new RuntimeException("Cannot not find employee wit id " + id);
+//            }
+//
+//
+//        } catch (SQLException exception) {
+//            LOGGER.error("Exception occurred while connecting to database: ", exception);
+//            throw new RuntimeException(exception);
+//        }
+//
+//    }
+//
+//    @Override
+//    @Transactional(propagation = Propagation.MANDATORY)
+//    public List<Employee> getAllEmployees(){
+//
+//        LOGGER.info("Connecting to database");
+//        List<Employee> result = new ArrayList<>();
+//
+//        try (Connection connection = dataSource.getConnection();
+//             Statement statement = connection.createStatement()){
+//
+//            LOGGER.info("Successfully connected to database");
+//
+//            String sql = "SELECT * FROM EMPLOYEE";
+//
+//            ResultSet resultSet = statement.executeQuery(sql);
+//
+//            while (resultSet.next()){
+//                Employee employee = createEmployee(resultSet);
+//                result.add(employee);
+//            }
+//
+//        } catch (SQLException exception) {
+//            LOGGER.error("Exception occurred while connecting to database: ", exception);
+//            throw new RuntimeException(exception);
+//        }
+//
+//        return result;
+//
+//    }
 
     @Override
     public void addNewEmployee(int id, int idStatus, String lastName, String name, String phone,
@@ -86,7 +86,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
 
         LOGGER.info("Connecting to database");
 
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = newDataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("INSERT INTO EMPLOYEE VALUES(?,?,?,?,?,?,?,?,?,?,?)")){
 
             LOGGER.info("Successfully connected to database");
@@ -123,29 +123,29 @@ public class JdbcEmployeeDao implements EmployeeDao {
         }
     }
 
-    @Override
-    public void deleteEmployee(int id) {
-
-        LOGGER.info("Connecting to database");
-
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM EMPLOYEE WHERE ID=?")) {
-
-            statement.setInt(1, id);
-            statement.executeUpdate();
-
-        }catch (SQLException exception) {
-            LOGGER.error("Exception occurred while connecting to database: ", exception);
-            throw new RuntimeException(exception);
-        }
-    }
+//    @Override
+//    public void deleteEmployee(int id) {
+//
+//        LOGGER.info("Connecting to database");
+//
+//        try (Connection connection = dataSource.getConnection();
+//             PreparedStatement statement = connection.prepareStatement("DELETE FROM EMPLOYEE WHERE ID=?")) {
+//
+//            statement.setInt(1, id);
+//            statement.executeUpdate();
+//
+//        }catch (SQLException exception) {
+//            LOGGER.error("Exception occurred while connecting to database: ", exception);
+//            throw new RuntimeException(exception);
+//        }
+//    }
 
     @Override
     public void modify(int id, int idStatus, String lastName, String name, String phone,
                        String email, String address, String dateOfBirth, String dateOfSigningAContract,
                        String dateOfFirstTrade, int idRiskManager) {
 
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = newDataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("UPDATE EMPLOYEE SET ID_STATUS =?, LAST_NAME=?, " +
                      "NAME=?, PHONE=?, EMAIL=?, ADDRESS=?, DATE_OF_BIRTH=?, DATE_OF_SIGNING_A_CONTRACT=?, " +
                      "DATE_OF_FIRST_TRADE=?, ID_RISKMANAGER=? WHERE ID = ?")) {
@@ -184,7 +184,8 @@ public class JdbcEmployeeDao implements EmployeeDao {
 
     }
 
-    private Employee createEmployee(ResultSet resultSet) throws SQLException {
+    @Override
+    public Employee createTable(ResultSet resultSet) throws SQLException {
         Employee employee = new Employee();
 
         employee.setId(resultSet.getInt("ID"));
@@ -204,8 +205,8 @@ public class JdbcEmployeeDao implements EmployeeDao {
     }
 
 
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public void setNewDataSource(DataSource dataSource) {
+        this.newDataSource = dataSource;
     }
 
 }

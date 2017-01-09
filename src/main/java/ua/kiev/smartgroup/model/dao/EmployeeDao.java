@@ -7,17 +7,17 @@ import java.util.List;
 /**
  * Created by User on 13.12.2016.
  */
-public interface EmployeeDao {
+public interface EmployeeDao extends BaseTableDao{
 
-    Employee loadEmployee(int id);
+//    Employee loadEmployee(int id);
 
-    List<Employee> getAllEmployees();
+//    List<Employee> getAllEmployees();
 
     void addNewEmployee(int id, int idStatus, String lastName, String name, String phone,
                             String email, String address, String dateOfBirth, String dateOfSigningAContract,
                             String dateOfFirstTrade, int idRiskManager);
 
-    void deleteEmployee(int id);
+//    void deleteEmployee(int id);
 
     void modify(int id, int idStatus, String lastName, String name, String phone,
                 String email, String address, String dateOfBirth, String dateOfSigningAContract,

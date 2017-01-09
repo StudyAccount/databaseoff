@@ -14,70 +14,70 @@ import java.util.List;
 /**
  * Created by SleepWalker on 03.01.2017.
  */
-public class JdbcComputerDao implements ComputerDao {
+public class JdbcComputerDao extends JdbcBaseTableDao implements ComputerDao {
 
-    private DataSource dataSource;
+    private DataSource newDataSource;
 
     public static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
-    @Override
-    public List<Computer> loadAllComputers() {
+//    @Override
+//    public List<Computer> loadAllList() {
+//
+//        LOGGER.info("Connecting to database");
+//        List<Computer> result = new ArrayList<>();
+//
+//        try (Connection connection = dataSource.getConnection();
+//             Statement statement = connection.createStatement()){
+//
+//            LOGGER.info("Successfully connected to database");
+//
+//            String sql = "SELECT * FROM COMPUTER";
+//
+//            ResultSet resultSet = statement.executeQuery(sql);
+//
+//            while (resultSet.next()){
+//                Computer computer = createComputer(resultSet);
+//                result.add(computer);
+//            }
+//
+//        } catch (SQLException exception) {
+//            LOGGER.error("Exception occurred while connecting to database: ", exception);
+//            throw new RuntimeException(exception);
+//        }
+//
+//        return result;
+//
+//    }
 
-        LOGGER.info("Connecting to database");
-        List<Computer> result = new ArrayList<>();
-
-        try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement()){
-
-            LOGGER.info("Successfully connected to database");
-
-            String sql = "SELECT * FROM COMPUTER";
-
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            while (resultSet.next()){
-                Computer computer = createComputer(resultSet);
-                result.add(computer);
-            }
-
-        } catch (SQLException exception) {
-            LOGGER.error("Exception occurred while connecting to database: ", exception);
-            throw new RuntimeException(exception);
-        }
-
-        return result;
-
-    }
-
-    @Override
-    public Computer loadComputerByID(int id) {
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM COMPUTER WHERE ID = ?")){
-
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-
-            if(resultSet.next()){
-
-                return createComputer(resultSet);
-            }else {
-
-                throw new RuntimeException("Cannot not find computer wit id " + id);
-            }
-
-
-        } catch (SQLException exception) {
-            LOGGER.error("Exception occurred while connecting to database: ", exception);
-            throw new RuntimeException(exception);
-        }
-    }
+//    @Override
+//    public Computer loadByID(int id) {
+//        try (Connection connection = dataSource.getConnection();
+//             PreparedStatement statement = connection.prepareStatement("SELECT * FROM COMPUTER WHERE ID = ?")){
+//
+//            statement.setInt(1, id);
+//            ResultSet resultSet = statement.executeQuery();
+//
+//            if(resultSet.next()){
+//
+//                return createComputer(resultSet);
+//            }else {
+//
+//                throw new RuntimeException("Cannot not find computer wit id " + id);
+//            }
+//
+//
+//        } catch (SQLException exception) {
+//            LOGGER.error("Exception occurred while connecting to database: ", exception);
+//            throw new RuntimeException(exception);
+//        }
+//    }
 
     @Override
     public void addNewComputer(int id, String name, int idMotherboard, String ram, String dateOfIncome,
                                float priceInUSD, float priceInUAH, int idEmployee) {
         LOGGER.info("Connecting to database");
 
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = newDataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("INSERT INTO COMPUTER VALUES(?,?,?,?,?,?,?,?)")){
 
             LOGGER.info("Successfully connected to database");
@@ -114,29 +114,29 @@ public class JdbcComputerDao implements ComputerDao {
         }
     }
 
-    @Override
-    public void deleteComputer(int id) {
-
-        LOGGER.info("Connecting to database");
-
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM COMPUTER WHERE ID=?")) {
-
-            statement.setInt(1, id);
-            statement.executeUpdate();
-
-        }catch (SQLException exception) {
-            LOGGER.error("Exception occurred while connecting to database: ", exception);
-            throw new RuntimeException(exception);
-        }
-
-    }
+//    @Override
+//    public void deleteEntry(int id) {
+//
+//        LOGGER.info("Connecting to database");
+//
+//        try (Connection connection = dataSource.getConnection();
+//             PreparedStatement statement = connection.prepareStatement("DELETE FROM COMPUTER WHERE ID=?")) {
+//
+//            statement.setInt(1, id);
+//            statement.executeUpdate();
+//
+//        }catch (SQLException exception) {
+//            LOGGER.error("Exception occurred while connecting to database: ", exception);
+//            throw new RuntimeException(exception);
+//        }
+//
+//    }
 
     @Override
     public void modify(int id, String name, int idMotherboard, String ram, String dateOfIncome,
                        float priceInUSD, float priceInUAH, int idEmployee) {
 
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = newDataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("UPDATE COMPUTER SET NAME = ?, ID_MOTHERBOARD = ?," +
                      "RAM = ?, DATE_OF_INCOME = ?, PRICE_IN_USD = ?, PRICE_IN_UAH = ?, ID_EMPLOYEE = ? WHERE ID = ?")) {
 
@@ -176,7 +176,8 @@ public class JdbcComputerDao implements ComputerDao {
 
     }
 
-    private Computer createComputer(ResultSet resultSet) throws SQLException {
+    @Override
+    public Computer createTable(ResultSet resultSet) throws SQLException {
         Computer computer = new Computer();
 
         computer.setId(resultSet.getInt("ID"));
@@ -191,7 +192,8 @@ public class JdbcComputerDao implements ComputerDao {
         return computer;
     }
 
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public void setNewDataSource(DataSource dataSource) {
+        this.newDataSource = dataSource;
     }
+
 }

@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class JdbcHddDao extends JdbcHardwareDao {
 
     @Override
-    public Hardware createHardware(ResultSet resultSet) throws SQLException {
+    public Hardware createTable(ResultSet resultSet) throws SQLException {
         Hardware hdd = new Hdd();
 
         hdd.setId(resultSet.getInt("ID"));
