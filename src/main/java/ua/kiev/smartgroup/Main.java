@@ -1,17 +1,13 @@
 package ua.kiev.smartgroup;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.mchange.v2.util.ComparatorUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ua.kiev.smartgroup.configuration.AppConfig;
 import ua.kiev.smartgroup.controllers.EmployeeController;
-import ua.kiev.smartgroup.model.BaseTable;
-import ua.kiev.smartgroup.model.Computer;
-import ua.kiev.smartgroup.model.Hardware;
-import ua.kiev.smartgroup.model.jdbc.JdbcComputerDao;
-import ua.kiev.smartgroup.model.jdbc.JdbcEmployeeDao;
-import ua.kiev.smartgroup.model.jdbc.JdbcHardwareDao;
+import ua.kiev.smartgroup.model.tables.BaseTable;
+import ua.kiev.smartgroup.model.jdbc.structures.JdbcComputerDao;
+import ua.kiev.smartgroup.model.jdbc.structures.JdbcEmployeeDao;
+import ua.kiev.smartgroup.model.jdbc.baseStructures.JdbcHardwareDao;
 
 
 /**

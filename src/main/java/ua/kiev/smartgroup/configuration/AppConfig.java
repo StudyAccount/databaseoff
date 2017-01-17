@@ -1,6 +1,7 @@
 package ua.kiev.smartgroup.configuration;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -8,13 +9,9 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import ua.kiev.smartgroup.Main;
 import ua.kiev.smartgroup.controllers.EmployeeController;
-import ua.kiev.smartgroup.model.BaseTable;
-import ua.kiev.smartgroup.model.Employee;
-import ua.kiev.smartgroup.model.Hdd;
-import ua.kiev.smartgroup.model.Processor;
-import ua.kiev.smartgroup.model.jdbc.*;
+import ua.kiev.smartgroup.model.jdbc.baseStructures.JdbcHardwareToComputer;
+import ua.kiev.smartgroup.model.jdbc.structures.*;
 
-import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 /**
  * Created by User on 23.11.2016.
@@ -185,13 +182,53 @@ public class AppConfig {
     }
 
     @Bean
-    public  JdbcComputerDao computerDao() throws PropertyVetoException {
+    public JdbcComputerDao computerDao() throws PropertyVetoException {
 
         JdbcComputerDao computerDao = new JdbcComputerDao();
         computerDao.setDataSource(dataSource());
         computerDao.setTableName("COMPUTER");
         computerDao.setNewDataSource(dataSource());
         return computerDao;
+    }
+
+    @Bean
+    public JdbcProcessorToComputerDao processorToComputer() throws PropertyVetoException {
+
+        JdbcProcessorToComputerDao processorToComputerDao = new JdbcProcessorToComputerDao();
+        processorToComputerDao.setDataSource(dataSource());
+        processorToComputerDao.setTableName("COMPUTER_PROCESSOR");
+        processorToComputerDao.setHardwareId("ID_PROCESSOR");
+        return processorToComputerDao;
+    }
+
+    @Bean
+    public JdbcHddToComputerDao hddToComputerDao() throws PropertyVetoException {
+
+        JdbcHddToComputerDao hddToComputerDao = new JdbcHddToComputerDao();
+        hddToComputerDao.setDataSource(dataSource());
+        hddToComputerDao.setTableName("COMPUTER_HDD");
+        hddToComputerDao.setHardwareId("ID_HDD");
+        return  hddToComputerDao;
+    }
+
+    @Bean
+    public JdbcSsdToComputerDao ssdToComputerDao() throws PropertyVetoException {
+
+        JdbcSsdToComputerDao ssdToComputerDao = new JdbcSsdToComputerDao();
+        ssdToComputerDao.setDataSource(dataSource());
+        ssdToComputerDao.setTableName("COMPUTER_SSD");
+        ssdToComputerDao.setHardwareId("ID_SSD");
+        return ssdToComputerDao;
+    }
+
+    @Bean
+    public JdbcVideoCardToComputerDao videoCardToComputerDao() throws PropertyVetoException {
+
+        JdbcVideoCardToComputerDao videoCardToComputerDao = new JdbcVideoCardToComputerDao();
+        videoCardToComputerDao.setDataSource(dataSource());
+        videoCardToComputerDao.setTableName("COMPUTER_VIDEOCARD");
+        videoCardToComputerDao.setHardwareId("ID_VIDEOCARD");
+        return videoCardToComputerDao;
     }
 
 }

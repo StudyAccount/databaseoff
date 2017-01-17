@@ -1,9 +1,5 @@
 package ua.kiev.smartgroup.model.dao;
 
-import ua.kiev.smartgroup.model.Computer;
-
-import java.util.List;
-
 /**
  * Created by SleepWalker on 23.12.2016.
  */

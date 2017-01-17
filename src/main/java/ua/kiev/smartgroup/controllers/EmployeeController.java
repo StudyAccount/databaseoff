@@ -3,7 +3,7 @@ package ua.kiev.smartgroup.controllers;
 
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
-import ua.kiev.smartgroup.model.Employee;
+import ua.kiev.smartgroup.model.tables.Employee;
 import ua.kiev.smartgroup.model.dao.EmployeeDao;
 
 import java.util.List;

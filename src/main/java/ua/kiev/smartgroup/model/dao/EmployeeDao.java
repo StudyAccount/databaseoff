@@ -1,9 +1,5 @@
 package ua.kiev.smartgroup.model.dao;
 
-import ua.kiev.smartgroup.model.Employee;
-
-import java.util.List;
-
 /**
  * Created by User on 13.12.2016.
  */
