@@ -104,6 +104,10 @@ public class AppConfig {
         main.setSsdDao(ssdDao());
         main.setVideoCardDao(videoCardDao());
         main.setComputerDao(computerDao());
+        main.setProcessorToComputerDao(processorToComputerDao());
+        main.setHddToComputerDao(hddToComputerDao());
+        main.setSsdToComputerDao(ssdToComputerDao());
+        main.setVideoCardToComputerDao(videoCardToComputerDao());
 
         return main;
     }
@@ -192,7 +196,7 @@ public class AppConfig {
     }
 
     @Bean
-    public JdbcProcessorToComputerDao processorToComputer() throws PropertyVetoException {
+    public JdbcProcessorToComputerDao processorToComputerDao() throws PropertyVetoException {
 
         JdbcProcessorToComputerDao processorToComputerDao = new JdbcProcessorToComputerDao();
         processorToComputerDao.setDataSource(dataSource());

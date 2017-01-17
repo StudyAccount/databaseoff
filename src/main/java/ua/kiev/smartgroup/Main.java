@@ -4,10 +4,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ua.kiev.smartgroup.configuration.AppConfig;
 import ua.kiev.smartgroup.controllers.EmployeeController;
+import ua.kiev.smartgroup.model.jdbc.structures.*;
 import ua.kiev.smartgroup.model.tables.BaseTable;
-import ua.kiev.smartgroup.model.jdbc.structures.JdbcComputerDao;
-import ua.kiev.smartgroup.model.jdbc.structures.JdbcEmployeeDao;
 import ua.kiev.smartgroup.model.jdbc.baseStructures.JdbcHardwareDao;
+import ua.kiev.smartgroup.model.tables.ForeignTable;
 
 
 /**
@@ -24,6 +24,10 @@ public class Main {
     private JdbcHardwareDao ssdDao;
     private JdbcHardwareDao videoCardDao;
     private JdbcComputerDao computerDao;
+    private JdbcProcessorToComputerDao processorToComputerDao;
+    private JdbcHddToComputerDao hddToComputerDao;
+    private JdbcSsdToComputerDao ssdToComputerDao;
+    private JdbcVideoCardToComputerDao videoCardToComputerDao;
 
 
     public static void main(String[] args) {
@@ -66,25 +70,29 @@ public class Main {
 //        ssdDao.loadAllList("SSD").forEach(System.out::println);
 //        videoCardDao.loadAllList("VIDEOCARD").forEach(System.out::println);
 
-        BaseTable processor  = processorDao.loadByID(1);
+        ForeignTable hddToComputer = hddToComputerDao.loadByComputerId(4);
+        System.out.println(hddToComputer.toString());
+        hddToComputerDao.modify(8,4);
+        System.out.println(hddToComputerDao.loadByComputerId(4).toString());
+//        BaseTable processor  = processorDao.loadByID(1);
 //        Hardware hdd = hddDao.loadByID(1);
 //        Hardware monitorModel  = monitorModelDao.loadByID(1);
 //        Hardware motherboard =  motherboardDao.loadByID(1);
 //        Hardware ssd = ssdDao.loadByID(1);
 //        Hardware videoCard = videoCardDao.loadByID(1);
 //
-        System.out.println(processor.toString());
+//        System.out.println(processor.toString());
 //        System.out.println(hdd.toString());
 //        System.out.println(monitorModel.toString());
 //        System.out.println(motherboard.toString());
 //        System.out.println(ssd.toString());
 //        System.out.println(videoCard.toString());
 
-        processorDao.addNewModel(79,"jktym");
-        processorDao.deleteEntry(78);
-        processorDao.loadAllList().forEach(System.out::println);
-        processorDao.deleteEntry(79);
-        processorDao.loadAllList().forEach(System.out::println);
+//        processorDao.addNewModel(79,"jktym");
+//        processorDao.deleteEntry(78);
+//        processorDao.loadAllList().forEach(System.out::println);
+//        processorDao.deleteEntry(79);
+//        processorDao.loadAllList().forEach(System.out::println);
 //        processorDao.addNewModel(77,"jktym");
 //        processorDao.modify("PROCESSOR", 77,"t,fkf");
 //        processorDao.deleteEntry("PROCESSOR", 77);
@@ -137,6 +145,22 @@ public class Main {
 
     public void setComputerDao(JdbcComputerDao computerDao) {
         this.computerDao = computerDao;
+    }
+
+    public void setProcessorToComputerDao(JdbcProcessorToComputerDao processorToComputerDao) {
+        this.processorToComputerDao = processorToComputerDao;
+    }
+
+    public void setHddToComputerDao(JdbcHddToComputerDao hddToComputerDao) {
+        this.hddToComputerDao = hddToComputerDao;
+    }
+
+    public void setSsdToComputerDao(JdbcSsdToComputerDao ssdToComputerDao) {
+        this.ssdToComputerDao = ssdToComputerDao;
+    }
+
+    public void setVideoCardToComputerDao(JdbcVideoCardToComputerDao videoCardToComputerDao) {
+        this.videoCardToComputerDao = videoCardToComputerDao;
     }
 }
 

@@ -23,4 +23,12 @@ public class EmployeeToDepartment extends ForeignTable{
     public void setIdDepartment(int idDepartment) {
         this.idDepartment = idDepartment;
     }
+
+    @Override
+    public String toString() {
+        return "EmployeeToDepartment{" +
+                "idEmployee=" + idEmployee +
+                ", idDepartment=" + idDepartment +
+                '}';
+    }
 }

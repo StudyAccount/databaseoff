@@ -21,6 +21,6 @@ public class JdbcProcessorToComputerDao extends JdbcHardwareToComputer {
         processorToComputer.setIdComputer(resultSet.getInt("ID_COMPUTER"));
         processorToComputer.setIdProcessor(resultSet.getInt("ID_PROCESSOR"));
 
-        return super.createTable(resultSet);
+        return processorToComputer;
     }
 }

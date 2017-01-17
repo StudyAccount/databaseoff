@@ -23,4 +23,12 @@ public class VideoCardToComputer extends ForeignTable{
     public void setIdVideoCard(int idVideoCard) {
         this.idVideoCard = idVideoCard;
     }
+
+    @Override
+    public String toString() {
+        return "VideoCardToComputer{" +
+                "idComputer=" + idComputer +
+                ", idVideoCard=" + idVideoCard +
+                '}';
+    }
 }

@@ -20,6 +20,6 @@ public class JdbcHddToComputerDao extends JdbcHardwareToComputer {
         hddToComputer.setIdComputer(resultSet.getInt("ID_COMPUTER"));
         hddToComputer.setIdHdd(resultSet.getInt("ID_HDD"));
 
-        return super.createTable(resultSet);
+        return hddToComputer;
     }
 }

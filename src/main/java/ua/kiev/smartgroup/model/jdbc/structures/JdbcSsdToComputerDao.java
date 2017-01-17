@@ -20,6 +20,6 @@ public class JdbcSsdToComputerDao extends JdbcHardwareToComputer {
         ssdToComputer.setIdComputer(resultSet.getInt("ID_COMPUTER"));
         ssdToComputer.setIdSsd(resultSet.getInt("ID_SSD"));
 
-        return super.createTable(resultSet);
+        return ssdToComputer;
     }
 }

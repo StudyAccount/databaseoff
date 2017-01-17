@@ -23,4 +23,12 @@ public class HddToComputer extends ForeignTable{
     public void setIdHdd(int idHdd) {
         this.idHdd = idHdd;
     }
+
+    @Override
+    public String toString() {
+        return "HddToComputer{" +
+                "idComputer=" + idComputer +
+                ", idHdd=" + idHdd +
+                '}';
+    }
 }

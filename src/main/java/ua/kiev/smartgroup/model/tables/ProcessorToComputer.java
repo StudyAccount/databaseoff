@@ -23,4 +23,12 @@ public class ProcessorToComputer extends ForeignTable {
     public void setIdProcessor(int idProcessor) {
         this.idProcessor = idProcessor;
     }
+
+    @Override
+    public String toString() {
+        return "ProcessorToComputer{" +
+                "idComputer=" + idComputer +
+                ", idProcessor=" + idProcessor +
+                '}';
+    }
 }

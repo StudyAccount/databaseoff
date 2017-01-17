@@ -20,6 +20,6 @@ public class JdbcVideoCardToComputerDao extends JdbcHardwareToComputer {
         videoCardToComputer.setIdComputer(resultSet.getInt("ID_COMPUTER"));
         videoCardToComputer.setIdVideoCard(resultSet.getInt("ID_VIDEOCARD"));
 
-        return super.createTable(resultSet);
+        return videoCardToComputer;
     }
 }

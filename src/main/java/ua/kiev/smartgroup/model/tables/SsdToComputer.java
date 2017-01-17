@@ -23,4 +23,12 @@ public class SsdToComputer extends ForeignTable{
     public void setIdSsd(int idSsd) {
         this.idSsd = idSsd;
     }
+
+    @Override
+    public String toString() {
+        return "SsdToComputer{" +
+                "idComputer=" + idComputer +
+                ", idSsd=" + idSsd +
+                '}';
+    }
 }

@@ -23,4 +23,12 @@ public class SubscriptionToEmployee extends ForeignTable {
     public void setIdSubscription(int idSubscription) {
         this.idSubscription = idSubscription;
     }
+
+    @Override
+    public String toString() {
+        return "SubscriptionToEmployee{" +
+                "idEmployee=" + idEmployee +
+                ", idSubscription=" + idSubscription +
+                '}';
+    }
 }
