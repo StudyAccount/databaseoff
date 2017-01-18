@@ -11,7 +11,7 @@ import java.sql.SQLException;
 /**
  * Created by SleepWalker on 18.01.2017.
  */
-public class JdbcOffice extends JdbcSmallTableDao{
+public class JdbcOfficeDao extends JdbcSmallTableDao{
 
     @Override
     public BaseTable createTable(ResultSet resultSet) throws SQLException {

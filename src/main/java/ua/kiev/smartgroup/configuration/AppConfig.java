@@ -11,6 +11,7 @@ import ua.kiev.smartgroup.controllers.EmployeeController;
 import ua.kiev.smartgroup.model.jdbc.structures.*;
 
 import java.beans.PropertyVetoException;
+
 /**
  * Created by User on 23.11.2016.
  */
@@ -70,6 +71,19 @@ public class AppConfig {
         employeeDao.setTableName("EMPLOYEE");
 
         return employeeDao;
+    }
+
+
+
+    @Bean
+    public JdbcRiskManagerDao riskManagerDao() throws PropertyVetoException {
+
+        JdbcRiskManagerDao riskManagerDao = new JdbcRiskManagerDao();
+
+        riskManagerDao.setDataSource(dataSource());
+        riskManagerDao.setNewDataSource(dataSource());
+        riskManagerDao.setTableName("RISK_MANAGER");
+        return riskManagerDao;
     }
 
     @Bean
@@ -149,6 +163,77 @@ public class AppConfig {
         monitorModelDao.setDataSource(dataSource());
         monitorModelDao.setNewDataSource(dataSource());
         return monitorModelDao;
+    }
+
+    @Bean
+    public JdbcOfficeDao officeDao() throws PropertyVetoException {
+
+        JdbcOfficeDao officeDao = new JdbcOfficeDao();
+        officeDao.setTableName("OFFICE");
+        officeDao.setSmallTableName("OFFICE");
+        officeDao.setDataSource(dataSource());
+        officeDao.setNewDataSource(dataSource());
+        return officeDao;
+
+    }
+
+    @Bean
+    public JdbcStatusDao statusDao() throws PropertyVetoException {
+
+        JdbcStatusDao statusDao = new JdbcStatusDao();
+
+        statusDao.setDataSource(dataSource());
+        statusDao.setNewDataSource(dataSource());
+        statusDao.setTableName("STATUS");
+        statusDao.setSmallTableName("STATUS");
+        return statusDao;
+    }
+
+    @Bean
+    public JdbcDepartmentDao departmentDao() throws PropertyVetoException {
+
+        JdbcDepartmentDao departmentDao = new JdbcDepartmentDao();
+
+        departmentDao.setDataSource(dataSource());
+        departmentDao.setNewDataSource(dataSource());
+        departmentDao.setTableName("DEPARTMENT");
+        departmentDao.setSmallTableName("DEPARTMENT");
+
+        return departmentDao;
+    }
+
+    @Bean
+    private JdbcSubscriptionDao subscriptionDao() throws PropertyVetoException {
+
+        JdbcSubscriptionDao subscriptionDao = new JdbcSubscriptionDao();
+
+        subscriptionDao.setDataSource(dataSource());
+        subscriptionDao.setNewDataSource(dataSource());
+        subscriptionDao.setTableName("SUBSCRIPTION");
+        subscriptionDao.setSmallTableName("SUBSCRIPTION");
+        return subscriptionDao;
+    }
+
+    @Bean
+    public JdbcMonitorDao monitorDao() throws PropertyVetoException {
+
+        JdbcMonitorDao monitorDao = new JdbcMonitorDao();
+        monitorDao.setDataSource(dataSource());
+        monitorDao.setNewDataSource(dataSource());
+        monitorDao.setTableName("MONITOR");
+
+        return monitorDao;
+    }
+
+    @Bean
+    public JdbcSitDao sitDao() throws PropertyVetoException {
+
+        JdbcSitDao sitDao = new JdbcSitDao();
+        sitDao.setDataSource(dataSource());
+        sitDao.setNewDataSource(dataSource());
+        sitDao.setTableName("SIT");
+
+        return  sitDao;
     }
 
     @Bean
@@ -235,6 +320,28 @@ public class AppConfig {
         videoCardToComputerDao.setIdForeignTable("ID_VIDEOCARD");
         videoCardToComputerDao.setIdBaseTable("ID_COMPUTER");
         return videoCardToComputerDao;
+    }
+
+    @Bean
+    public JdbcSubscriptionToEmployeeDao subscriptionToEmployeeDao() throws PropertyVetoException {
+
+        JdbcSubscriptionToEmployeeDao subscriptionToEmployeeDao = new JdbcSubscriptionToEmployeeDao();
+        subscriptionToEmployeeDao.setDataSource(dataSource());
+        subscriptionToEmployeeDao.setTableName("SUBSCRIPTION_EMPLOYEE");
+        subscriptionToEmployeeDao.setIdForeignTable("ID_SUBSCRIPTION");
+        subscriptionToEmployeeDao.setIdBaseTable("ID_EMPLOYEE");
+        return subscriptionToEmployeeDao;
+    }
+
+    @Bean
+    public JdbcEmployeeToDepartmentDao employeeToDepartmentDao() throws PropertyVetoException {
+
+        JdbcEmployeeToDepartmentDao employeeToDepartmentDao = new JdbcEmployeeToDepartmentDao();
+        employeeToDepartmentDao.setDataSource(dataSource());
+        employeeToDepartmentDao.setTableName("EMPLOYEE_DEPARTMENT");
+        employeeToDepartmentDao.setIdForeignTable("ID_DEPARTMENT");
+        employeeToDepartmentDao.setIdBaseTable("ID_EMPLOYEE");
+        return employeeToDepartmentDao;
     }
 
 }
