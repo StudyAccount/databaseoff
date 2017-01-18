@@ -1,6 +1,6 @@
 package ua.kiev.smartgroup.model.jdbc.structures;
 
-import ua.kiev.smartgroup.model.jdbc.baseStructures.JdbcHardwareToComputer;
+import ua.kiev.smartgroup.model.jdbc.baseStructures.JdbcForeignToBaseTablesDao;
 import ua.kiev.smartgroup.model.tables.ForeignTable;
 import ua.kiev.smartgroup.model.tables.SsdToComputer;
 
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 /**
  * Created by SleepWalker on 17.01.2017.
  */
-public class JdbcSsdToComputerDao extends JdbcHardwareToComputer {
+public class JdbcSsdToComputerDao extends JdbcForeignToBaseTablesDao {
 
     @Override
     public ForeignTable createTable(ResultSet resultSet) throws SQLException {

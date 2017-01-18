@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.kiev.smartgroup.Main;
 import ua.kiev.smartgroup.model.tables.ForeignTable;
-import ua.kiev.smartgroup.model.dao.SupportHardwareTableDao;
+import ua.kiev.smartgroup.model.dao.SupportTableDao;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -15,15 +15,16 @@ import java.sql.SQLException;
 /**
  * Created by SleepWalker on 17.01.2017.
  */
-public class JdbcHardwareToComputer implements SupportHardwareTableDao {
+public class JdbcForeignToBaseTablesDao implements SupportTableDao {
 
     private String tableName;
     private DataSource dataSource;
-    private String hardwareId;
+    private String idForeignTable;
+    private String idBaseTable;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     @Override
-    public void newEntry(int idComputer, int idHardware) {
+    public void newEntry(int idBaseTable, int idSmallTable) {
 
         LOGGER.info("Connecting to database");
 
@@ -32,8 +33,8 @@ public class JdbcHardwareToComputer implements SupportHardwareTableDao {
 
             LOGGER.info("Successfully connected to database");
 
-            statement.setInt(1, idComputer);
-            statement.setInt(2, idHardware);
+            statement.setInt(1, idBaseTable);
+            statement.setInt(2, idSmallTable);
 
             statement.executeUpdate();
 
@@ -46,13 +47,13 @@ public class JdbcHardwareToComputer implements SupportHardwareTableDao {
     }
 
     @Override
-    public void deleteEntry(int idComputer) {
+    public void deleteEntry(int idBaseTable) {
         LOGGER.info("Connecting to database");
 
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM " + tableName + " WHERE  ID_COMPUTER=?")) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM " + tableName + " WHERE " + this.idBaseTable + " = ?")) {
 
-            statement.setInt(1, idComputer);
+            statement.setInt(1, idBaseTable);
             statement.executeUpdate();
 
         }catch (SQLException exception) {
@@ -62,14 +63,14 @@ public class JdbcHardwareToComputer implements SupportHardwareTableDao {
     }
 
     @Override
-    public void modify(int idComputer, int idHardware) {
+    public void modify(int idBaseTable, int idSmallTable) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("UPDATE " + tableName + " SET " + hardwareId + " = ? WHERE ID_COMPUTER = ?")) {
+             PreparedStatement statement = connection.prepareStatement("UPDATE " + tableName + " SET " + idForeignTable + " = ? WHERE " + this.idBaseTable + " = ?")) {
 
             LOGGER.info("Successfully connected to database");
 
-            statement.setInt(1, idComputer);
-            statement.setInt(2, idHardware);
+            statement.setInt(1, idBaseTable);
+            statement.setInt(2, idSmallTable);
             statement.executeUpdate();
         }catch (SQLException exception) {
             LOGGER.error("Exception occurred while connecting to database: ", exception);
@@ -78,19 +79,19 @@ public class JdbcHardwareToComputer implements SupportHardwareTableDao {
     }
 
     @Override
-    public ForeignTable loadByComputerId(int idComputer) {
+    public ForeignTable loadByBaseTableId(int idBaseTable) {
 
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + tableName + " WHERE ID_COMPUTER = ?")){
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + tableName + " WHERE " + this.idBaseTable + " = ?")){
 
-            statement.setInt(1, idComputer);
+            statement.setInt(1, idBaseTable);
             ResultSet resultSet = statement.executeQuery();
 
             if(resultSet.next()){
                 return createTable(resultSet);
             }else {
 
-                throw new RuntimeException("Cannot not find hardware wit id " + idComputer);
+                throw new RuntimeException("Cannot not find hardware wit id " + idBaseTable);
             }
 
 
@@ -112,7 +113,11 @@ public class JdbcHardwareToComputer implements SupportHardwareTableDao {
         this.dataSource = dataSource;
     }
 
-    public void setHardwareId(String hardwareId) {
-        this.hardwareId = hardwareId;
+    public void setIdForeignTable(String idForeignTable) {
+        this.idForeignTable = idForeignTable;
+    }
+
+    public void setIdBaseTable(String idBaseTable) {
+        this.idBaseTable = idBaseTable;
     }
 }

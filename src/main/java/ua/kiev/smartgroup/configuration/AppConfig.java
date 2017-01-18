@@ -1,7 +1,6 @@
 package ua.kiev.smartgroup.configuration;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -9,7 +8,6 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import ua.kiev.smartgroup.Main;
 import ua.kiev.smartgroup.controllers.EmployeeController;
-import ua.kiev.smartgroup.model.jdbc.baseStructures.JdbcHardwareToComputer;
 import ua.kiev.smartgroup.model.jdbc.structures.*;
 
 import java.beans.PropertyVetoException;
@@ -118,7 +116,7 @@ public class AppConfig {
         JdbcProcessorDao processorDao = new JdbcProcessorDao();
 
         processorDao.setTableName("PROCESSOR");
-        processorDao.setHardwareName("PROCESSOR");
+        processorDao.setSmallTableName("PROCESSOR");
         processorDao.setDataSource(dataSource());
         processorDao.setNewDataSource(dataSource());
         return processorDao;
@@ -130,7 +128,7 @@ public class AppConfig {
 
         JdbcHddDao hddDao = new JdbcHddDao();
         hddDao.setTableName("HDD");
-        hddDao.setHardwareName("HDD");
+        hddDao.setSmallTableName("HDD");
         hddDao.setDataSource(dataSource());
         hddDao.setNewDataSource(dataSource());
         return hddDao;
@@ -147,7 +145,7 @@ public class AppConfig {
 
         JdbcMonitorModelDao monitorModelDao = new JdbcMonitorModelDao();
         monitorModelDao.setTableName("MONITOR_MODEL");
-        monitorModelDao.setHardwareName("MONITOR_MODEL");
+        monitorModelDao.setSmallTableName("MONITOR_MODEL");
         monitorModelDao.setDataSource(dataSource());
         monitorModelDao.setNewDataSource(dataSource());
         return monitorModelDao;
@@ -158,7 +156,7 @@ public class AppConfig {
 
         JdbcSsdDao ssdDao = new JdbcSsdDao();
         ssdDao.setTableName("SSD");
-        ssdDao.setHardwareName("SSD");
+        ssdDao.setSmallTableName("SSD");
         ssdDao.setDataSource(dataSource());
         ssdDao.setNewDataSource(dataSource());
         return ssdDao;
@@ -169,7 +167,7 @@ public class AppConfig {
 
         JdbcVideoCardDao videoCardDao = new JdbcVideoCardDao();
         videoCardDao.setTableName("VIDEOCARD");
-        videoCardDao.setHardwareName("VIDEOCARD");
+        videoCardDao.setSmallTableName("VIDEOCARD");
         videoCardDao.setDataSource(dataSource());
         videoCardDao.setNewDataSource(dataSource());
         return videoCardDao;
@@ -179,7 +177,7 @@ public class AppConfig {
     public JdbcMotherboardDao motherboardDao() throws PropertyVetoException {
         JdbcMotherboardDao motherboardDao = new JdbcMotherboardDao();
         motherboardDao.setTableName("MOTHERBOARD");
-        motherboardDao.setHardwareName("MOTHERBOARD");
+        motherboardDao.setSmallTableName("MOTHERBOARD");
         motherboardDao.setDataSource(dataSource());
         motherboardDao.setNewDataSource(dataSource());
         return motherboardDao;
@@ -201,7 +199,8 @@ public class AppConfig {
         JdbcProcessorToComputerDao processorToComputerDao = new JdbcProcessorToComputerDao();
         processorToComputerDao.setDataSource(dataSource());
         processorToComputerDao.setTableName("COMPUTER_PROCESSOR");
-        processorToComputerDao.setHardwareId("ID_PROCESSOR");
+        processorToComputerDao.setIdForeignTable("ID_PROCESSOR");
+        processorToComputerDao.setIdBaseTable("ID_COMPUTER");
         return processorToComputerDao;
     }
 
@@ -211,7 +210,8 @@ public class AppConfig {
         JdbcHddToComputerDao hddToComputerDao = new JdbcHddToComputerDao();
         hddToComputerDao.setDataSource(dataSource());
         hddToComputerDao.setTableName("COMPUTER_HDD");
-        hddToComputerDao.setHardwareId("ID_HDD");
+        hddToComputerDao.setIdForeignTable("ID_HDD");
+        hddToComputerDao.setIdBaseTable("ID_COMPUTER");
         return  hddToComputerDao;
     }
 
@@ -221,7 +221,8 @@ public class AppConfig {
         JdbcSsdToComputerDao ssdToComputerDao = new JdbcSsdToComputerDao();
         ssdToComputerDao.setDataSource(dataSource());
         ssdToComputerDao.setTableName("COMPUTER_SSD");
-        ssdToComputerDao.setHardwareId("ID_SSD");
+        ssdToComputerDao.setIdForeignTable("ID_SSD");
+        ssdToComputerDao.setIdBaseTable("ID_COMPUTER");
         return ssdToComputerDao;
     }
 
@@ -231,7 +232,8 @@ public class AppConfig {
         JdbcVideoCardToComputerDao videoCardToComputerDao = new JdbcVideoCardToComputerDao();
         videoCardToComputerDao.setDataSource(dataSource());
         videoCardToComputerDao.setTableName("COMPUTER_VIDEOCARD");
-        videoCardToComputerDao.setHardwareId("ID_VIDEOCARD");
+        videoCardToComputerDao.setIdForeignTable("ID_VIDEOCARD");
+        videoCardToComputerDao.setIdBaseTable("ID_COMPUTER");
         return videoCardToComputerDao;
     }
 

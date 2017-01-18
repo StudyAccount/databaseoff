@@ -1,6 +1,6 @@
 package ua.kiev.smartgroup.model.jdbc.structures;
 
-import ua.kiev.smartgroup.model.jdbc.baseStructures.JdbcHardwareDao;
+import ua.kiev.smartgroup.model.jdbc.baseStructures.JdbcSmallTableDao;
 import ua.kiev.smartgroup.model.tables.Hardware;
 import ua.kiev.smartgroup.model.tables.Processor;
 
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 /**
  * Created by SleepWalker on 03.01.2017.
  */
-public class JdbcProcessorDao extends JdbcHardwareDao {
+public class JdbcProcessorDao extends JdbcSmallTableDao {
 
     @Override
     public Hardware createTable(ResultSet resultSet) throws SQLException {

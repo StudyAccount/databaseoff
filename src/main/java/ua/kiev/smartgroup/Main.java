@@ -5,9 +5,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import ua.kiev.smartgroup.configuration.AppConfig;
 import ua.kiev.smartgroup.controllers.EmployeeController;
 import ua.kiev.smartgroup.model.jdbc.structures.*;
-import ua.kiev.smartgroup.model.tables.BaseTable;
-import ua.kiev.smartgroup.model.jdbc.baseStructures.JdbcHardwareDao;
-import ua.kiev.smartgroup.model.tables.ForeignTable;
+import ua.kiev.smartgroup.model.jdbc.baseStructures.JdbcSmallTableDao;
 
 
 /**
@@ -16,13 +14,13 @@ import ua.kiev.smartgroup.model.tables.ForeignTable;
 public class Main {
 
     private EmployeeController employeeController;
-    private JdbcHardwareDao processorDao;
+    private JdbcSmallTableDao processorDao;
     private JdbcEmployeeDao employeeDao;
-    private JdbcHardwareDao hddDao;
-    private JdbcHardwareDao monitorModelDao;
-    private JdbcHardwareDao motherboardDao;
-    private JdbcHardwareDao ssdDao;
-    private JdbcHardwareDao videoCardDao;
+    private JdbcSmallTableDao hddDao;
+    private JdbcSmallTableDao monitorModelDao;
+    private JdbcSmallTableDao motherboardDao;
+    private JdbcSmallTableDao ssdDao;
+    private JdbcSmallTableDao videoCardDao;
     private JdbcComputerDao computerDao;
     private JdbcProcessorToComputerDao processorToComputerDao;
     private JdbcHddToComputerDao hddToComputerDao;
@@ -70,10 +68,10 @@ public class Main {
 //        ssdDao.loadAllList("SSD").forEach(System.out::println);
 //        videoCardDao.loadAllList("VIDEOCARD").forEach(System.out::println);
 
-        ForeignTable hddToComputer = hddToComputerDao.loadByComputerId(4);
-        System.out.println(hddToComputer.toString());
-        hddToComputerDao.modify(8,4);
-        System.out.println(hddToComputerDao.loadByComputerId(4).toString());
+//        ForeignTable hddToComputer = hddToComputerDao.loadByBaseTableId(4);
+//        System.out.println(hddToComputer.toString());
+//        hddToComputerDao.modify(8,4);
+//        System.out.println(hddToComputerDao.loadByBaseTableId(4).toString());
 //        BaseTable processor  = processorDao.loadByID(1);
 //        Hardware hdd = hddDao.loadByID(1);
 //        Hardware monitorModel  = monitorModelDao.loadByID(1);
@@ -109,7 +107,7 @@ public class Main {
 //        System.out.println(employeeController.getEmployeeById(78));
     }
 
-    public void setProcessorDao(JdbcHardwareDao processorDao) {
+    public void setProcessorDao(JdbcSmallTableDao processorDao) {
         this.processorDao = processorDao;
     }
 
@@ -119,7 +117,7 @@ public class Main {
     }
 
 
-    public void setHddDao(JdbcHardwareDao hddDao) {
+    public void setHddDao(JdbcSmallTableDao hddDao) {
         this.hddDao = hddDao;
     }
 
@@ -127,19 +125,19 @@ public class Main {
         this.employeeDao = employeeDao;
     }
 
-    public void setMonitorModelDao(JdbcHardwareDao monitorModelDao) {
+    public void setMonitorModelDao(JdbcSmallTableDao monitorModelDao) {
         this.monitorModelDao = monitorModelDao;
     }
 
-    public void setMotherboardDao(JdbcHardwareDao motherboardDao) {
+    public void setMotherboardDao(JdbcSmallTableDao motherboardDao) {
         this.motherboardDao = motherboardDao;
     }
 
-    public void setSsdDao(JdbcHardwareDao ssdDao) {
+    public void setSsdDao(JdbcSmallTableDao ssdDao) {
         this.ssdDao = ssdDao;
     }
 
-    public void setVideoCardDao(JdbcHardwareDao videoCardDao) {
+    public void setVideoCardDao(JdbcSmallTableDao videoCardDao) {
         this.videoCardDao = videoCardDao;
     }
 

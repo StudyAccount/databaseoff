@@ -3,7 +3,7 @@ package ua.kiev.smartgroup.model.jdbc.baseStructures;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.kiev.smartgroup.Main;
-import ua.kiev.smartgroup.model.dao.HardwareDao;
+import ua.kiev.smartgroup.model.dao.SmallTableDao;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -11,10 +11,10 @@ import java.sql.*;
 /**
  * Created by SleepWalker on 27.12.2016.
  */
-public class JdbcHardwareDao extends JdbcBaseTableDao implements HardwareDao{
+public class JdbcSmallTableDao extends JdbcBaseTableDao implements SmallTableDao {
 
     private DataSource newDataSource;
-    private String hardwareName;
+    private String smallTableName;
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
@@ -26,7 +26,7 @@ public class JdbcHardwareDao extends JdbcBaseTableDao implements HardwareDao{
         LOGGER.info("Connecting to database");
 
         try (Connection connection = newDataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO " + hardwareName + " VALUES(?,?)")){
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO " + smallTableName + " VALUES(?,?)")){
 
             LOGGER.info("Successfully connected to database");
 
@@ -48,7 +48,7 @@ public class JdbcHardwareDao extends JdbcBaseTableDao implements HardwareDao{
     public void modify(int id, String name) {
 
         try (Connection connection = newDataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("UPDATE " + hardwareName + " SET NAME = ? WHERE ID = ?")) {
+             PreparedStatement statement = connection.prepareStatement("UPDATE " + smallTableName + " SET NAME = ? WHERE ID = ?")) {
 
             LOGGER.info("Successfully connected to database");
 
@@ -63,8 +63,8 @@ public class JdbcHardwareDao extends JdbcBaseTableDao implements HardwareDao{
 
     }
 
-    public void setHardwareName(String hardwareName) {
-        this.hardwareName = hardwareName;
+    public void setSmallTableName(String smallTableName) {
+        this.smallTableName = smallTableName;
     }
 
     public void setNewDataSource(DataSource dataSource) {
